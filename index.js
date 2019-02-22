@@ -19,6 +19,8 @@ var numUsers = 0;
 
 
 io.on('connection',function(socket){
+  var addedUser = false;
+  
     console.log('one user connected '+socket.id);
 
  // when the client emits 'add user', this listens and executes
