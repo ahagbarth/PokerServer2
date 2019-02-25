@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('user joined', {
       username: socket.username,
       numUsers: numUsers,
-      clients: io.sockets.clients()
+      users: users
     });
   });
 
@@ -68,13 +68,14 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     if (addedUser) {
       --numUsers;
-      
+    
+    list.splice( users.indexOf('foo'), 1 );
 
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
         numUsers: numUsers,
-        clients: io.sockets.clients()
+        users: users
       });
     }
   });
