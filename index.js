@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
     if (addedUser) {
       --numUsers;
     
-    list.splice( users.indexOf('foo'), 1 );
+    list.splice( users.indexOf(socket.username), 1 );
 
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
