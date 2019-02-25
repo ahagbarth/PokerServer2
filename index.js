@@ -18,8 +18,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 var users = [];
 var numUsers = 0;
 
+const tableState = {
+  EMPTY: 'empty',
+  FULL: 'full'
+}
+
+
 io.on('connection', (socket) => {
   var addedUser = false;
+
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -34,13 +41,21 @@ io.on('connection', (socket) => {
   socket.on('add user', (username) => {
     if (addedUser) return;
 
+    if(numUsers > 5) {
+      tableState = tableState.FULL;
+    } else {
+      tableState = tableState.EMPTY;
+    }
+   
     // we store the username in the socket session for this client
     socket.username = username;
     users.push(socket.username);
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
-      numUsers: numUsers
+      numUsers: numUsers,
+      tableState: tableState
+
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
