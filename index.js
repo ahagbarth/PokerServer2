@@ -67,7 +67,13 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     if (addedUser) {
       --numUsers;
-
+      
+    for( let i = 0; i < users.length-1; i++){
+      if ( users[i] === username) {
+        users.splice(i, 1);
+        break;
+      }
+    }
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
