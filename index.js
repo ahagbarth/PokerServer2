@@ -19,7 +19,7 @@ var numUsers = 0;
 
 io.on('connection', (socket) => {
   var addedUser = false;
-  var clients = io.sockets.clients();
+  //var clients = io.sockets.clients();
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
     // we tell the client to execute 'new message'
@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('user joined', {
       username: socket.username,
       numUsers: numUsers,
-      clients : clients
+      //clients : clients
     });
   });
 
@@ -73,7 +73,7 @@ io.on('connection', (socket) => {
       socket.broadcast.emit('user left', {
         username: socket.username,
         numUsers: numUsers,
-        clients : clients
+        //clients : clients
       });
     }
   });
