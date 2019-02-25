@@ -14,12 +14,12 @@ server.listen(port, () => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Chatroom
-var users = [];
+
 var numUsers = 0;
 
 io.on('connection', (socket) => {
   var addedUser = false;
-
+  var clients = io.sockets.clients();
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
     // we tell the client to execute 'new message'
@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('user joined', {
       username: socket.username,
       numUsers: numUsers,
-      users: users
+      clients : clients
     });
   });
 
@@ -68,16 +68,12 @@ io.on('connection', (socket) => {
     if (addedUser) {
       --numUsers;
       
-    for( let i = 0; i < users.length-1; i++){
-      if ( users[i] === username) {
-        users.splice(i, 1);
-        break;
-      }
-    }
+ 
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
-        numUsers: numUsers
+        numUsers: numUsers,
+        clients : clients
       });
     }
   });
