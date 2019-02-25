@@ -14,7 +14,7 @@ server.listen(port, () => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Chatroom
-var clients = io.sockets.clients();
+
 var users = [];
 var numUsers = 0;
 
@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('user joined', {
       username: socket.username,
       numUsers: numUsers,
-      clients: clients
+      clients: io.sockets.clients()
     });
   });
 
@@ -74,7 +74,7 @@ io.on('connection', (socket) => {
       socket.broadcast.emit('user left', {
         username: socket.username,
         numUsers: numUsers,
-        clients: clients
+        clients: io.sockets.clients()
       });
     }
   });
