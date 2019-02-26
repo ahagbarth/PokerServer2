@@ -18,18 +18,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 var users = [];
 var numUsers = 0;
 
-var tableState = "free";
+
 
 
 
 io.on('connection', (socket) => {
   var addedUser = false;
 
-  if(numUsers > 5) {
-    tableState = "full";
-  } else {
-    tableState = "free";
-  }
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -53,7 +48,6 @@ io.on('connection', (socket) => {
     addedUser = true;
     socket.emit('login', {
       numUsers: numUsers
-      tableState: tableState;
 
     });
     // echo globally (all clients) that a person has connected
