@@ -20,11 +20,16 @@ var numUsers = 0;
 
 
 
-
+var tableState;
 
 io.on('connection', (socket) => {
   var addedUser = false;
 
+if(numUsers > 5) {
+  tableState = "unavailable";
+} else {
+  tableState = "available";
+}
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -47,7 +52,9 @@ io.on('connection', (socket) => {
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
-      numUsers: numUsers
+      numUsers: numUsers,
+      tableState: tableState,
+      users: users
 
     });
     // echo globally (all clients) that a person has connected
