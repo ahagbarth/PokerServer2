@@ -16,6 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Chatroom
 
 var users = [];
+var waitingList = [];
 var numUsers = 0;
 
 
@@ -44,6 +45,7 @@ io.on('connection', (socket) => {
 
 if(numUsers > 5) {
   tableState = "unavailable";
+  waitingList.push(socket.username);
 } else {
   tableState = "available";
   users.push(socket.username);
@@ -56,8 +58,8 @@ if(numUsers > 5) {
     socket.emit('login', {
       numUsers: numUsers,
       tableState: tableState,
-      users: users
-
+      users: users,
+      waitingList: waitingList
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
