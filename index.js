@@ -19,7 +19,7 @@ var users = [];
 var numUsers = 0;
 
 
-
+var tableState = "available";
 io.on('connection', (socket) => {
   var addedUser = false;
 
