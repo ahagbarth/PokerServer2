@@ -19,7 +19,7 @@ var users = [];
 var numUsers = 0;
 
 
-var tableState = "available";
+
 io.on('connection', (socket) => {
   var addedUser = false;
 
@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
   socket.on('add user', (username) => {
     if (addedUser) return;
 
+    
    
     // we store the username in the socket session for this client
     socket.username = username;
