@@ -25,11 +25,6 @@ var tableState;
 io.on('connection', (socket) => {
   var addedUser = false;
 
-if(numUsers > 5) {
-  tableState = "unavailable";
-} else {
-  tableState = "available";
-}
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -44,11 +39,18 @@ if(numUsers > 5) {
   socket.on('add user', (username) => {
     if (addedUser) return;
 
-    
-   
     // we store the username in the socket session for this client
     socket.username = username;
-    users.push(socket.username);
+
+if(numUsers > 5) {
+  tableState = "unavailable";
+} else {
+  tableState = "available";
+  users.push(socket.username);
+}
+   
+  
+    
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
