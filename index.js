@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var users = [];
 var numUsers = 0;
 
-var tableState;
+var tableState = "free";
 
 
 
