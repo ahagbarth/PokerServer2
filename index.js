@@ -23,7 +23,6 @@ var waitingList = [];
 var numUsers = 0;
 var userPosition; 
 
-var deckState; 
 
 
 
@@ -66,8 +65,8 @@ if(numUsers > 5) {
       numUsers: numUsers,
       tableState: tableState,
       users: users,
-      waitingList: waitingList,
-      deckState: deck.generate()
+      waitingList: waitingList
+      
 
 
     });
