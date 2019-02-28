@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var users = [];
 var waitingList = [];
 var numUsers = 0;
+var userPosition; 
 
 
 
@@ -25,7 +26,7 @@ var tableState;
 
 io.on('connection', (socket) => {
   var addedUser = false;
-
+  userPosition = users.indexOf(socket.username);
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -88,7 +89,8 @@ if(numUsers > 5) {
     if (addedUser) {
       --numUsers;
     
-    users.splice( users.indexOf(socket.username), 1 );
+    users.splice( userPosition, 1 );
+    waitingList.splice(waitingList.indexOf(socket.username), 1);
 
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
