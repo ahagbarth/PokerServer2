@@ -6,7 +6,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
-const add = require('./add');
+const deck = require('./Cards');
 
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
@@ -22,14 +22,22 @@ var users = [];
 var waitingList = [];
 var numUsers = 0;
 var userPosition; 
+var Deck = deck.generate();
+var deckState; 
 
-var value = add(2, 5);
+
 
 var tableState;
 
 io.on('connection', (socket) => {
   var addedUser = false;
   userPosition = users.indexOf(socket.username);
+
+  if(Deck.length == 0) {
+    deckState = "empty";
+  } else {
+    deckState = "has values";
+  }
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -64,7 +72,8 @@ if(numUsers > 5) {
       tableState: tableState,
       users: users,
       waitingList: waitingList,
-      value: value
+      deckState: deckState
+
 
     });
     // echo globally (all clients) that a person has connected
