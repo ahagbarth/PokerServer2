@@ -6,12 +6,15 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
+const add = require('./add');
+
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
 
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Chatroom
 
@@ -20,7 +23,7 @@ var waitingList = [];
 var numUsers = 0;
 var userPosition; 
 
-
+var value = add(2, 5);
 
 var tableState;
 
@@ -60,7 +63,8 @@ if(numUsers > 5) {
       numUsers: numUsers,
       tableState: tableState,
       users: users,
-      waitingList: waitingList
+      waitingList: waitingList,
+      value: value
 
     });
     // echo globally (all clients) that a person has connected
