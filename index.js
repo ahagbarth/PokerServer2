@@ -22,7 +22,7 @@ var users = [];
 var waitingList = [];
 var numUsers = 0;
 var userPosition; 
-var Deck = deck.generate();
+
 var deckState; 
 
 
@@ -33,11 +33,6 @@ io.on('connection', (socket) => {
   var addedUser = false;
   userPosition = users.indexOf(socket.username);
 
-  if(Deck.length == 0) {
-    deckState = "empty";
-  } else {
-    deckState = "has values";
-  }
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -72,7 +67,7 @@ if(numUsers > 5) {
       tableState: tableState,
       users: users,
       waitingList: waitingList,
-      deckState: deckState
+      deckState: deck.generate()
 
 
     });
