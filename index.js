@@ -134,9 +134,12 @@ if(numUsers > 5) {
     var myDeck = deck.shufflePack(cardDeck);
     var firstThreeCardsTable = deck.draw(myDeck, 3);
 
-    socket.emit('game start', {
-      firstThreeCardsTable: firstThreeCardsTable
+    socket.on('game start', ()=> {
+      socket.emit('game start', {
+        firstThreeCardsTable: firstThreeCardsTable
+      });
     });
+    
 
 
 
