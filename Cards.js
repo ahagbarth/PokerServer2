@@ -1,64 +1,46 @@
-class Deck {
-	constructor() {
-		this.deck = []
-		this.dealtCards = []
-	}
+function createPack() {
+  var suits = new Array("H", "C", "S", "D");
+  var pack = new Array();
+  var n = 52;
+  var index = n / suits.length;
 
-	generateDeck() {
-		let card = (suit, value) => {
-			this.name = value + ' of ' + suit
-			this.suit = suit
-			this.value = value
+  var count = 0;
+  for(i = 0; i <= 3; i++)
+      for(j = 1; j <= index; j++)
+          pack[count++] = j + suits[i];
 
-			return {name:this.name}
-		}
-
-		const values = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
-		const suits = ['Clubs', 'Diamonds', 'Spades', 'Hearts']
-
-		for (let i = 0; i < suits.length; i++) {
-			for(let s = 0; s<values.length; s++) {
-				this.deck.push(card(suits[i], values[s]))
-			}
-			
-		}
-	}
-
-	shuffle() {
-
-		var index = this.deck.length;
-		var temp;
-		var randIndex;
-
-		while(0 != index) {
-
-			randIndex = Math.floor(Math.random() * index--);
-
-			temp = this.deck[index];
-
-			this.deck[index] = this.deck[randIndex];
-			this.deck[randIndex] = temp;
-
-		}
-		return this.deck;
-	}
-
-	printDeck() {
-		if(this.deck.length == 0) {
-			console.log('this deck has been generated')
-		} else{
-			for(let c = 0; c < this.deck.length; c++) {
-				console.log(this.deck[c]);
-			}
-		}
-
-
-	}
-	Deal(){
-		return this.deck.pop();
-	}
-
-
+  return pack;
 }
 
-module.exports = Deck;
+function shufflePack(pack) {
+  var i = pack.length, j, tempi, tempj;
+  if (i === 0) return false;
+  while (--i) {
+     j = Math.floor(Math.random() * (i + 1));
+     tempi = pack[i];
+     tempj = pack[j];
+     pack[i] = tempj;
+     pack[j] = tempi;
+   }
+  return pack;
+}
+
+function draw(pack, amount) {
+  var cards = new Array();
+  cards = pack.slice(0, amount);
+
+  pack.splice(0, amount);
+
+
+  return cards;
+}
+
+function playCard(amount, hand, index) {
+  hand.splice(index, amount)
+  return hand;
+}
+
+exports.createPack = createPack;
+exports.shufflePack = shufflePack;
+exports.draw = draw;
+exports.playCard = playCard;
