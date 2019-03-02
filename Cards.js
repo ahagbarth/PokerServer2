@@ -7,7 +7,7 @@ function createPack() {
   var count = 0;
   for(i = 0; i <= 3; i++)
       for(j = 1; j <= index; j++)
-          pack[count++] = j + suits[i];
+          pack[count++] = suits[i] + j;
 
   return pack;
 }
