@@ -45,7 +45,9 @@ io.on('connection', (socket) => {
   var addedUser = false;
   userPosition = users.indexOf(socket.username);
 
- 
+  var cardDeck = deck.createPack();
+  var myDeck = deck.shufflePack(cardDeck);
+  var firstThreeCardsTable = deck.draw(myDeck, 3);
 
 
 
@@ -99,9 +101,7 @@ if(numUsers > 5) {
 
   if(/*users.length > 1 && */gameState == "Ready") {
 
-    var cardDeck = deck.createPack();
-    var myDeck = deck.shufflePack(cardDeck);
-    var firstThreeCardsTable = deck.draw(myDeck, 3);
+  
 
     
       socket.emit('game start', {
