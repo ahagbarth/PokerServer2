@@ -44,12 +44,12 @@ var gameState = "Ready";
 io.on('connection', (socket) => {
   var addedUser = false;
   userPosition = users.indexOf(socket.username);
-
+/*
   var cardDeck = deck.createPack();
   var myDeck = deck.shufflePack(cardDeck);
   var firstThreeCardsTable = deck.draw(myDeck, 3);
 
-
+*/
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
