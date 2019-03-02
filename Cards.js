@@ -1,5 +1,5 @@
 function createPack() {
-  var suits = new Array("H", "C", "S", "D");
+  var suits = new Array("cardhearts", "cardclubs", "cardspades", "carddiamonds");
   var pack = new Array();
   var n = 52;
   var index = n / suits.length;
