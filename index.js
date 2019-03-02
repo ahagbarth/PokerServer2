@@ -93,6 +93,37 @@ if(numUsers > 5) {
       users: users
     });
 
+
+
+//////////////////Game Logic //////////////////////////////
+
+  if(/*users.length > 1 && */gameState == "Ready") {
+
+    var cardDeck = deck.createPack();
+    var myDeck = deck.shufflePack(cardDeck);
+    var firstThreeCardsTable = deck.draw(myDeck, 3);
+
+    
+      socket.emit('game start', {
+        firstThreeCardsTable: firstThreeCardsTable
+      });
+    
+
+
+
+  } else if(gameState == "RoundOne") {
+    
+    
+  } else if(gameState == "RoundTwo") {
+
+  } else if(gameState == "FinalRound") {
+
+  }
+
+
+
+/////////////////////////////////////////////////////////////
+
   });
 
   // when the client emits 'typing', we broadcast it to others
@@ -125,34 +156,6 @@ if(numUsers > 5) {
       });
     }
   });
-
-  //Game Logic
-
-  if(/*users.length > 1 && */gameState == "Ready") {
-
-    var cardDeck = deck.createPack();
-    var myDeck = deck.shufflePack(cardDeck);
-    var firstThreeCardsTable = deck.draw(myDeck, 3);
-
-    
-      socket.emit('game start', {
-        firstThreeCardsTable: firstThreeCardsTable
-      });
-    
-
-
-
-  } else if(gameState == "RoundOne") {
-    
-    
-  } else if(gameState == "RoundTwo") {
-
-  } else if(gameState == "FinalRound") {
-
-  }
-
-
-
 
 
 
