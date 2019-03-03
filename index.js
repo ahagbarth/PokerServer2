@@ -44,6 +44,7 @@ var tableState;
 var gameState = "Ready";
 
 io.on('connection', (socket) => {
+
   socket.join("Room 1");
 
   var addedUser = false;
@@ -100,34 +101,6 @@ if(numUsers > 5) {
 
 
 
-//////////////////Game Logic //////////////////////////////
-
-  if(users.length > 1 && gameState == "Ready") {
-
-  
-
-      socket.to('Room 1').emit('game start', {
-        firstThreeCardsTable: firstThreeCardsTable
-      });
-
-  
-    
-
-
-
-  } else if(gameState == "RoundOne") {
-    
-    
-  } else if(gameState == "RoundTwo") {
-
-  } else if(gameState == "FinalRound") {
-
-  }
-
-
-
-/////////////////////////////////////////////////////////////
-
   });
 
   // when the client emits 'typing', we broadcast it to others
@@ -162,6 +135,34 @@ if(numUsers > 5) {
     }
   });
 
+
+//////////////////Game Logic //////////////////////////////
+
+  if(gameState == "Ready") {
+
+  
+
+      socket.to('Room 1').emit('game start', {
+        firstThreeCardsTable: firstThreeCardsTable
+      });
+
+  
+    
+
+
+
+  } else if(gameState == "RoundOne") {
+    
+    
+  } else if(gameState == "RoundTwo") {
+
+  } else if(gameState == "FinalRound") {
+
+  }
+
+
+
+/////////////////////////////////////////////////////////////
 
 
 });
