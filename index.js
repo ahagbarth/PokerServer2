@@ -68,6 +68,7 @@ io.on('connection', (socket) => {
   // when the client emits 'add user', this listens and executes
   socket.on('add user', (username) => {
     if (addedUser) return;
+
     socket.join("Room 1");
     // we store the username in the socket session for this client
     socket.username = username;
@@ -86,14 +87,14 @@ if(numUsers > 5) {
     
     ++numUsers;
     addedUser = true;
-    socket.emit('login', {
+    socket.to('Room 1').emit('login', {
       numUsers: numUsers,
       tableState: tableState,
       users: users,
       waitingList: waitingList
     });
     // echo globally (all clients) that a person has connected
-    socket.broadcast.emit('user joined', {
+    socket.broadcast.to('Room 1').emit('user joined', {
       username: socket.username,
       numUsers: numUsers,
       users: users
@@ -143,7 +144,7 @@ if(numUsers > 5) {
   });
 
   // when the user disconnects.. perform this
-  socket.on('disconnect', () => {
+  socket.to('Room 1').on('disconnect', () => {
     if (addedUser) {
       socket.leave("Room 1");
       --numUsers;
