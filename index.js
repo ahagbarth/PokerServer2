@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
     // we store the username in the socket session for this client
     socket.username = username;
 
-if(userNumberForRooms > 5) {
+if(numUsers > 5) {
   tableState = "unavailable";
 
  
