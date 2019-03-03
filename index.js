@@ -24,7 +24,7 @@ var waitingList = [];
 var numUsers = 0;
 var userPosition; 
 
-var roomNumber = 0;
+
 
 
 
@@ -68,7 +68,7 @@ io.on('connection', (socket) => {
 
     // we store the username in the socket session for this client
     socket.username = username;
-
+var roomNumber = 0;
 if(numUsers > 5) {
   tableState = "unavailable";
   roomNumber += 1;
@@ -86,7 +86,8 @@ if(numUsers > 5) {
       numUsers: numUsers,
       tableState: tableState,
       users: users,
-      waitingList: waitingList
+      waitingList: waitingList,
+      roomNumber: roomNumber
       
 
 
