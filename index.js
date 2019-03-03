@@ -128,7 +128,7 @@ if(numUsers > 5) {
 /////////////////////////////////////////////////////////////
 
   });
-/*
+
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', () => {
     socket.broadcast.emit('typing', {
@@ -144,7 +144,7 @@ if(numUsers > 5) {
   });
 
   // when the user disconnects.. perform this
-  socket.to('Room 1').on('disconnect', () => {
+  socket.on('disconnect', () => {
     if (addedUser) {
       socket.leave("Room 1");
       --numUsers;
@@ -159,10 +159,9 @@ if(numUsers > 5) {
         users: users
       });
     }
-
   });
 
-*/
+
 
 
 });
