@@ -44,6 +44,8 @@ var tableState;
 var gameState = "Ready";
 
 io.on('connection', (socket) => {
+  socket.join("Room 1");
+
   var addedUser = false;
   userPosition = users.indexOf(socket.username);
 /*
@@ -104,10 +106,11 @@ if(numUsers > 5) {
 
   
 
-    
-      socket.emit('game start', {
+      socket.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
       });
+
+  
     
 
 
@@ -144,6 +147,7 @@ if(numUsers > 5) {
   // when the user disconnects.. perform this
   socket.on('disconnect', () => {
     if (addedUser) {
+      socket.leave("Room 1");
       --numUsers;
     
     users.splice( userPosition, 1 );
