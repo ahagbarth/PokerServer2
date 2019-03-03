@@ -24,6 +24,8 @@ var waitingList = [];
 var numUsers = 0;
 var userPosition; 
 
+var roomNumber = 0;
+
 
 
 var cardDeck = deck.createPack();
@@ -69,6 +71,7 @@ io.on('connection', (socket) => {
 
 if(numUsers > 5) {
   tableState = "unavailable";
+  roomNumber += 1;
   waitingList.push(socket.username);
 } else {
   tableState = "available";
