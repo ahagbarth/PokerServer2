@@ -102,7 +102,7 @@ if(numUsers > 5) {
 
 //////////////////Game Logic //////////////////////////////
 
-  if(/*users.length > 1 && */gameState == "Ready") {
+  if(users.length > 1 && gameState == "Ready") {
 
   
 
