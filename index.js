@@ -128,7 +128,7 @@ if(numUsers > 5) {
 /////////////////////////////////////////////////////////////
 
   });
-
+/*
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', () => {
     socket.broadcast.emit('typing', {
@@ -159,9 +159,10 @@ if(numUsers > 5) {
         users: users
       });
     }
+
   });
 
-
+*/
 
 
 });
