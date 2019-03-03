@@ -68,12 +68,11 @@ io.on('connection', (socket) => {
 
     // we store the username in the socket session for this client
     socket.username = username;
-var roomNumber = 0;
-var userNumberForRooms = numUsers;
+
 if(userNumberForRooms > 5) {
   tableState = "unavailable";
-  roomNumber += 1;
-  userNumberForRooms = 0;
+
+ 
   waitingList.push(socket.username);
 } else {
   tableState = "available";
@@ -88,11 +87,7 @@ if(userNumberForRooms > 5) {
       numUsers: numUsers,
       tableState: tableState,
       users: users,
-      waitingList: waitingList,
-      roomNumber: roomNumber
-      
-
-
+      waitingList: waitingList
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
