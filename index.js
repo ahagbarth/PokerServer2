@@ -142,9 +142,7 @@ if(numUsers > 5) {
 
   
 
-      socket.to('Room 1').emit('game start', {
-        firstThreeCardsTable: firstThreeCardsTable
-      });
+      socket.to('Room 1').emit('game start', firstThreeCardsTable);
 
   
     
