@@ -44,8 +44,7 @@ var tableState;
 var gameState = "Ready";
 
 io.on('connection', (socket) => {
-//socket.join('Room 1');
-  
+socket.join("Room 1");
 
   var addedUser = false;
   userPosition = users.indexOf(socket.username);
@@ -53,7 +52,6 @@ io.on('connection', (socket) => {
   var cardDeck = deck.createPack();
   var myDeck = deck.shufflePack(cardDeck);
   var firstThreeCardsTable = deck.draw(myDeck, 3);
-
 */
 
   // when the client emits 'new message', this listens and executes
@@ -68,8 +66,7 @@ io.on('connection', (socket) => {
   // when the client emits 'add user', this listens and executes
   socket.on('add user', (username) => {
     if (addedUser) return;
-    
-    
+
     // we store the username in the socket session for this client
     socket.username = username;
 
@@ -101,6 +98,7 @@ if(numUsers > 5) {
     });
 
 
+
   });
 
   // when the client emits 'typing', we broadcast it to others
@@ -120,7 +118,7 @@ if(numUsers > 5) {
   // when the user disconnects.. perform this
   socket.on('disconnect', () => {
     if (addedUser) {
-      //socket.leave("Room 1");
+      socket.leave("Room 1");
       --numUsers;
     
     users.splice( userPosition, 1 );
@@ -142,7 +140,9 @@ if(numUsers > 5) {
 
   
 
-      socket.emit('game start', firstThreeCardsTable);
+      socket.to('Room 1').emit('game start', {
+        firstThreeCardsTable: firstThreeCardsTable
+      });
 
   
     
@@ -161,7 +161,6 @@ if(numUsers > 5) {
 
 
 /////////////////////////////////////////////////////////////
-
 
 
 });
