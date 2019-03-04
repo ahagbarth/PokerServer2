@@ -146,7 +146,7 @@ if(numUsers > 5) {
   // when the user disconnects.. perform this
   socket.on('disconnect', () => {
     if (addedUser) {
-      socket.leave("Room 1");
+      //socket.leave("Room 1");
       --numUsers;
     
     users.splice( userPosition, 1 );
