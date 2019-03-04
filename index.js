@@ -44,7 +44,7 @@ var tableState;
 var gameState = "Ready";
 
 io.on('connection', (socket) => {
-socket.join("Room 1");
+socket.join('Room 1');
   
 
   var addedUser = false;
