@@ -44,7 +44,7 @@ var tableState;
 var gameState = "Ready";
 
 io.on('connection', (socket) => {
-socket.join('Room 1');
+//socket.join('Room 1');
   
 
   var addedUser = false;
@@ -107,7 +107,7 @@ if(numUsers > 5) {
 
   
 
-      socket.to('Room 1').emit('game start', firstThreeCardsTable);
+      socket.emit('game start', firstThreeCardsTable);
 
   
     
