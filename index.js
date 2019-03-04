@@ -101,32 +101,6 @@ if(numUsers > 5) {
     });
 
 
-//////////////////Game Logic //////////////////////////////
-
-  if(gameState == "Ready") {
-
-  
-
-      socket.emit('game start', firstThreeCardsTable);
-
-  
-    
-
-
-
-  } else if(gameState == "RoundOne") {
-    
-    
-  } else if(gameState == "RoundTwo") {
-
-  } else if(gameState == "FinalRound") {
-
-  }
-
-
-
-/////////////////////////////////////////////////////////////
-
   });
 
   // when the client emits 'typing', we broadcast it to others
@@ -161,6 +135,32 @@ if(numUsers > 5) {
     }
   });
 
+
+//////////////////Game Logic //////////////////////////////
+
+  if(gameState == "Ready") {
+
+  
+
+      socket.emit('game start', firstThreeCardsTable);
+
+  
+    
+
+
+
+  } else if(gameState == "RoundOne") {
+    
+    
+  } else if(gameState == "RoundTwo") {
+
+  } else if(gameState == "FinalRound") {
+
+  }
+
+
+
+/////////////////////////////////////////////////////////////
 
 
 
