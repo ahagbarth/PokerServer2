@@ -38,7 +38,7 @@ console.log(secondRoundCard);
 console.log(finalRoundCard);
 
 
-
+var userHand;
 
 var tableState;
 var gameState = "Ready";
@@ -142,8 +142,8 @@ io.on('connection', (socket) => {
 
 
 
-      var userHand = deck.draw(myDeck, 2);
-      io.to('Room 1').to('${socket.id}').emit('deck', {
+      userHand = deck.draw(myDeck, 2);
+      socket.to('Room 1').emit('deck', {
 
         userHand: userHand
       });
