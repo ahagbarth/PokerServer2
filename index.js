@@ -28,18 +28,6 @@ var userPosition;
 
 
 
-var cardDeck = deck.createPack();
-var myDeck = deck.shufflePack(cardDeck);
-var firstThreeCardsTable = deck.draw(myDeck, 3);
-var secondRoundCard = deck.draw(myDeck, 1);
-var finalRoundCard = deck.draw(myDeck, 1);
-console.log(firstThreeCardsTable);
-console.log(secondRoundCard);
-console.log(finalRoundCard);
-
-
-var userHand;
-
 var tableState;
 var gameState = "Ready";
 
@@ -140,6 +128,20 @@ io.on('connection', (socket) => {
 
 
   socket.join("Room 1", (room) => {
+
+    
+
+  var cardDeck = deck.createPack();
+  var myDeck = deck.shufflePack(cardDeck);
+  var firstThreeCardsTable = deck.draw(myDeck, 3);
+  var secondRoundCard = deck.draw(myDeck, 1);
+  var finalRoundCard = deck.draw(myDeck, 1);
+  console.log(firstThreeCardsTable);
+  console.log(secondRoundCard);
+  console.log(finalRoundCard);
+
+
+  var userHand;
 
 
     if(gameState == "Ready") {
