@@ -44,7 +44,6 @@ var tableState;
 var gameState = "Ready";
 
 io.on('connection', (socket) => {
-socket.join("Room 1");
 
   var addedUser = false;
   userPosition = users.indexOf(socket.username);
@@ -52,7 +51,7 @@ socket.join("Room 1");
   var cardDeck = deck.createPack();
   var myDeck = deck.shufflePack(cardDeck);
   var firstThreeCardsTable = deck.draw(myDeck, 3);
-*/
+  */
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -70,17 +69,17 @@ socket.join("Room 1");
     // we store the username in the socket session for this client
     socket.username = username;
 
-if(numUsers > 5) {
-  tableState = "unavailable";
+    if(numUsers > 5) {
+      tableState = "unavailable";
 
- 
-  waitingList.push(socket.username);
-} else {
-  tableState = "available";
-  users.push(socket.username);
-}
-   
-  
+
+      waitingList.push(socket.username);
+    } else {
+      tableState = "available";
+      users.push(socket.username);
+    }
+
+
     
     ++numUsers;
     addedUser = true;
@@ -120,9 +119,9 @@ if(numUsers > 5) {
     if (addedUser) {
       socket.leave("Room 1");
       --numUsers;
-    
-    users.splice( userPosition, 1 );
-    waitingList.splice(waitingList.indexOf(socket.username), 1);
+
+      users.splice( userPosition, 1 );
+      waitingList.splice(waitingList.indexOf(socket.username), 1);
 
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
@@ -135,28 +134,30 @@ if(numUsers > 5) {
 
 
 //////////////////Game Logic //////////////////////////////
+/*
+  socket.on('user ready', () => {
 
-  if(gameState == "Ready") {
 
-  
+
+
+  });
+  */
+  socket.join("Room 1", () => {
+    if(gameState == "Ready") {
 
       socket.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
       });
+    } else if(gameState == "RoundOne") {
 
-  
-    
+    } else if(gameState == "RoundTwo") {
+
+    } else if(gameState == "FinalRound") {
+
+    }
+  });
 
 
-
-  } else if(gameState == "RoundOne") {
-    
-    
-  } else if(gameState == "RoundTwo") {
-
-  } else if(gameState == "FinalRound") {
-
-  }
 
 
 
