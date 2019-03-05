@@ -137,7 +137,7 @@ io.on('connection', (socket) => {
 
   socket.join("Room 1", (room) => {
 
-    
+
     if(gameState == "Ready") {
 
       io.to('Room 1').emit('game start', {
@@ -147,8 +147,10 @@ io.on('connection', (socket) => {
 
     } else if(gameState == "RoundTwo") {
 
-    } else if(gameState == "FinalRound") {
+    } else if(gameState == "RoundThree") {
 
+    } else if(gameState == "FinalRound") {
+      
     }
   });
 
