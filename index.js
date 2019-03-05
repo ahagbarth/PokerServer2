@@ -136,24 +136,18 @@ io.on('connection', (socket) => {
 
 //////////////////Game Logic //////////////////////////////
 
-  socket.on('cardHands', ()=> {
-    userHand = deck.draw(myDeck, 2);
-      socket.emit('deck', {
 
-        userHand: userHand
-      });
-
-
-
-  });
 
 
   socket.join("Room 1", (room) => {
 
 
     if(gameState == "Ready") {
+        userHand = deck.draw(myDeck, 2);
+         socket.emit('hand', {
 
-
+            userHand: userHand
+      });
 
       
 
