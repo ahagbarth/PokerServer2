@@ -133,7 +133,20 @@ io.on('connection', (socket) => {
   });
 
 
+
 //////////////////Game Logic //////////////////////////////
+
+  socket.on('cardHands', ()=> {
+    userHand = deck.draw(myDeck, 2);
+      socket.emit('deck', {
+
+        userHand: userHand
+      });
+
+
+
+  });
+
 
   socket.join("Room 1", (room) => {
 
@@ -142,11 +155,7 @@ io.on('connection', (socket) => {
 
 
 
-      userHand = deck.draw(myDeck, 2);
-      socket.to('Room 1').emit('deck', {
-
-        userHand: userHand
-      });
+      
 
       io.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
