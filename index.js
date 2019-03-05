@@ -134,27 +134,35 @@ io.on('connection', (socket) => {
 
 
 //////////////////Game Logic //////////////////////////////
-/*
-  socket.on('user ready', () => {
 
-
-
-
-  });
-  */
   socket.join("Room 1", (room) => {
+
+
     if(gameState == "Ready") {
 
       io.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
       });
     } else if(gameState == "RoundOne") {
+      io.to('Room 1').emit('round 1', {
+
+      });
 
     } else if(gameState == "RoundTwo") {
+      io.to('Room 1').emit('round 2', {
+        
+      });
+
+    } else if(gameState == "RoundThree") {
+      io.to('Room 1').emit('round 3', {
+        
+      });
+
 
     } else if(gameState == "FinalRound") {
-
-    }
+      io.to('Room 1').emit('round 3', {
+        
+      });
   });
 
 
