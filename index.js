@@ -143,7 +143,9 @@ io.on('connection', (socket) => {
 
 
       var userHand = deck.draw(myDeck, 2);
-      io.to('${socket.id}').emit('deck', 'hello');
+      io.to('${socket.id}').emit('deck', {
+        userHand: userHand
+      });
 
       io.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
