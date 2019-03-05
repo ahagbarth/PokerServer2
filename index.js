@@ -143,8 +143,8 @@ io.on('connection', (socket) => {
 
 
       var userHand = deck.draw(myDeck, 2);
-      io.to('${socket.id}').emit('deck', {
-        
+      io.to('Room 1').to('${socket.id}').emit('deck', {
+
         userHand: userHand
       });
 
