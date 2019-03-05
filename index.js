@@ -142,10 +142,10 @@ io.on('connection', (socket) => {
 
   });
   */
-  socket.join("Room 1", () => {
+  socket.join("Room 1", (room) => {
     if(gameState == "Ready") {
 
-      socket.to('Room 1').emit('game start', {
+      io.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
       });
     } else if(gameState == "RoundOne") {
