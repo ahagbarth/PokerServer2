@@ -140,6 +140,11 @@ io.on('connection', (socket) => {
 
     if(gameState == "Ready") {
 
+
+
+      var userHand = deck.draw(myDeck, 2);
+      io.to(${socket.username}).emit('deck', 'hello');
+
       io.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
       });
@@ -150,7 +155,7 @@ io.on('connection', (socket) => {
     } else if(gameState == "RoundThree") {
 
     } else if(gameState == "FinalRound") {
-      
+
     }
   });
 
