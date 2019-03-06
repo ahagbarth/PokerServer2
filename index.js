@@ -35,7 +35,7 @@ var userHand;
 
 
 var tableState;
-var gameState = 0;
+var gameState;
 
 io.on('connection', (socket) => {
 
@@ -135,6 +135,7 @@ io.on('connection', (socket) => {
 
   socket.join("Room 1", (room) => {
 
+    gameState = 0;
 
     socket.on('change game state', () => {
 
@@ -145,6 +146,7 @@ io.on('connection', (socket) => {
       }
 
    if(gameState == 0) {
+
         userHand = deck.draw(myDeck, 2);
          socket.emit('hand', {
 
