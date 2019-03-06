@@ -140,13 +140,6 @@ io.on('connection', (socket) => {
     socket.on('change game state', () => {
 
 
-      
-      
-   if(gameState == 0) {
-     cardDeck = deck.createPack();
-      myDeck = deck.shufflePack(cardDeck);
-
-
     if (tableState == "unavailable") {
 
     } else {
@@ -158,6 +151,14 @@ io.on('connection', (socket) => {
     }
 
       
+      
+   if(gameState == 0) {
+     cardDeck = deck.createPack();
+      myDeck = deck.shufflePack(cardDeck);
+
+      
+
+      
 
       io.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
@@ -165,7 +166,7 @@ io.on('connection', (socket) => {
 
       
     } else if(gameState == 1) {
-
+      tableState = "unavailable";
      
       firstThreeCardsTable = deck.draw(myDeck, 3);
 
@@ -177,6 +178,7 @@ io.on('connection', (socket) => {
       });
 
     } else if(gameState == 2) {
+
 
       secondRoundCard = deck.draw(myDeck, 1);
 
@@ -208,6 +210,7 @@ io.on('connection', (socket) => {
     gameState += 1;
 
       if(gameState == 5) {
+        tableState = "available";
         gameState = 0;
       }
 
