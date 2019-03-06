@@ -35,7 +35,7 @@ var userHand;
 
 
 var tableState;
-var gameState;
+var gameState = 0;
 
 io.on('connection', (socket) => {
 
@@ -135,7 +135,7 @@ io.on('connection', (socket) => {
 
   socket.join("Room 1", (room) => {
 
-    gameState = 0;
+  
 
     socket.on('change game state', () => {
 
@@ -181,6 +181,8 @@ io.on('connection', (socket) => {
       });
 
     } else if(gameState == 3) {
+
+      finalRoundCard = deck.draw(myDeck, 1);
 
       io.to('Room 1').emit('roundThree', {
         finalRoundCard: finalRoundCard,
