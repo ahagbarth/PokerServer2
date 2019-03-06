@@ -35,7 +35,7 @@ var userHand;
 
 
 var tableState;
-var gameState = "Ready";
+var gameState = 0;
 
 io.on('connection', (socket) => {
 
@@ -135,11 +135,20 @@ io.on('connection', (socket) => {
 
   socket.join("Room 1", (room) => {
 
-    
+
+    socket.on('change game state', () => {
+
+      gameState += 1;
+
+      if(gameState == 4) {
+        gameState = 0;
+      }
+
+    });
 
 
 
-    if(gameState == "Ready") {
+    if(gameState == 0) {
         userHand = deck.draw(myDeck, 2);
          socket.emit('hand', {
 
@@ -151,13 +160,29 @@ io.on('connection', (socket) => {
       io.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
       });
-    } else if(gameState == "RoundOne") {
+    } else if(gameState == 1) {
 
-    } else if(gameState == "RoundTwo") {
+      io.to('Room 1').emit('roundOne', {
+        gameState: gameState
+      });
 
-    } else if(gameState == "RoundThree") {
+    } else if(gameState == 2) {
 
-    } else if(gameState == "FinalRound") {
+      io.to('Room 1').emit('roundTwo', {
+        gameState: gameState
+      });
+
+    } else if(gameState == 3) {
+
+      io.to('Room 1').emit('roundThree', {
+        gameState: gameState
+      });
+
+    } else if(gameState == 4) {
+
+      io.to('Room 1').emit('finalRound', {
+        gameState: gameState
+      });
 
     }
   });
