@@ -191,6 +191,9 @@ io.on('connection', (socket) => {
         gameState: gameState
       });
 
+
+      gameState = 0;
+
     }
 
     gameState += 1;
