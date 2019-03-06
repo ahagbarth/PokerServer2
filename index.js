@@ -138,13 +138,10 @@ io.on('connection', (socket) => {
   
 
     socket.on('change game state', () => {
+       cardDeck = deck.createPack();
+      myDeck = deck.shufflePack(cardDeck);
 
-      gameState += 1;
-
-      if(gameState == 5) {
-        gameState = 0;
-      }
-
+      
    if(gameState == 0) {
 
         userHand = deck.draw(myDeck, 2);
@@ -160,8 +157,7 @@ io.on('connection', (socket) => {
       
     } else if(gameState == 1) {
 
-      cardDeck = deck.createPack();
-      myDeck = deck.shufflePack(cardDeck);
+     
       firstThreeCardsTable = deck.draw(myDeck, 3);
 
       
@@ -196,6 +192,13 @@ io.on('connection', (socket) => {
       });
 
     }
+
+    gameState += 1;
+
+      if(gameState == 5) {
+        gameState = 0;
+      }
+
 
 
     });
