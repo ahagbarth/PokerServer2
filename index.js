@@ -137,16 +137,6 @@ io.on('connection', (socket) => {
 
 
 
-    if (tableState == "unavailable") {
-
-    } else {
-        userHand = deck.draw(myDeck, 2);
-         socket.emit('hand', {
-
-            userHand: userHand
-      });
-    }
-
     socket.on('change game state', () => {
 
 
@@ -156,6 +146,16 @@ io.on('connection', (socket) => {
      cardDeck = deck.createPack();
       myDeck = deck.shufflePack(cardDeck);
 
+
+    if (tableState == "unavailable") {
+
+    } else {
+        userHand = deck.draw(myDeck, 2);
+         socket.emit('hand', {
+
+            userHand: userHand
+      });
+    }
 
       
 
