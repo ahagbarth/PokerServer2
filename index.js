@@ -153,7 +153,9 @@ io.on('connection', (socket) => {
             userHand: userHand
       });
 
-      
+      io.to('Room 1').emit('game start', {
+        firstThreeCardsTable: firstThreeCardsTable
+      });
 
       
     } else if(gameState == 1) {
@@ -162,9 +164,7 @@ io.on('connection', (socket) => {
       myDeck = deck.shufflePack(cardDeck);
       firstThreeCardsTable = deck.draw(myDeck, 3);
 
-      io.to('Room 1').emit('game start', {
-        firstThreeCardsTable: firstThreeCardsTable
-      });
+      
 
       io.to('Room 1').emit('roundOne', {
         firstThreeCardsTable: firstThreeCardsTable,
@@ -172,6 +172,8 @@ io.on('connection', (socket) => {
       });
 
     } else if(gameState == 2) {
+
+      secondRoundCard = deck.draw(myDeck, 1);
 
       io.to('Room 1').emit('roundTwo', {
         secondRoundCard: secondRoundCard,
