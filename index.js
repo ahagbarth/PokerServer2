@@ -138,6 +138,13 @@ io.on('connection', (socket) => {
   
 
     socket.on('change game state', () => {
+
+       userHand = deck.draw(myDeck, 2);
+         socket.emit('hand', {
+
+            userHand: userHand
+      });
+
       
       
    if(gameState == 0) {
