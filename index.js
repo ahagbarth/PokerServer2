@@ -25,6 +25,12 @@ var numUsers = 0;
 var userPosition; 
 
 
+var cardDeck = deck.createPack();
+var myDeck = deck.shufflePack(cardDeck);
+var firstThreeCardsTable = deck.draw(myDeck, 3);
+var secondRoundCard = deck.draw(myDeck, 1);
+var finalRoundCard = deck.draw(myDeck, 1);
+var userHand;
 
 
 
@@ -131,17 +137,6 @@ io.on('connection', (socket) => {
 
     
 
-  var cardDeck = deck.createPack();
-  var myDeck = deck.shufflePack(cardDeck);
-  var firstThreeCardsTable = deck.draw(myDeck, 3);
-  var secondRoundCard = deck.draw(myDeck, 1);
-  var finalRoundCard = deck.draw(myDeck, 1);
-  console.log(firstThreeCardsTable);
-  console.log(secondRoundCard);
-  console.log(finalRoundCard);
-
-
-  var userHand;
 
 
     if(gameState == "Ready") {
