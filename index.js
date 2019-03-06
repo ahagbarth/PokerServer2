@@ -134,7 +134,15 @@ io.on('connection', (socket) => {
 
 
   socket.join("Room 1", (room) => {
+     cardDeck = deck.createPack();
+      myDeck = deck.shufflePack(cardDeck);
 
+
+        userHand = deck.draw(myDeck, 2);
+         socket.emit('hand', {
+
+            userHand: userHand
+      });
   
 
     socket.on('change game state', () => {
