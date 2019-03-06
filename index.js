@@ -167,18 +167,21 @@ io.on('connection', (socket) => {
       });
 
       io.to('Room 1').emit('roundOne', {
+        firstThreeCardsTable: firstThreeCardsTable,
         gameState: gameState
       });
 
     } else if(gameState == 2) {
 
       io.to('Room 1').emit('roundTwo', {
+        secondRoundCard: secondRoundCard,
         gameState: gameState
       });
 
     } else if(gameState == 3) {
 
       io.to('Room 1').emit('roundThree', {
+        finalRoundCard: finalRoundCard,
         gameState: gameState
       });
 
