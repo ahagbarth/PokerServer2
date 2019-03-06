@@ -144,11 +144,7 @@ io.on('connection', (socket) => {
         gameState = 0;
       }
 
-    });
-
-
-
-    if(gameState == 0) {
+   if(gameState == 0) {
         userHand = deck.draw(myDeck, 2);
          socket.emit('hand', {
 
@@ -185,6 +181,13 @@ io.on('connection', (socket) => {
       });
 
     }
+      
+
+    });
+
+
+
+ 
   });
 
 
