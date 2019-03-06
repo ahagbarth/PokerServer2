@@ -148,7 +148,7 @@ io.on('connection', (socket) => {
 
 
         userHand = deck.draw(myDeck, 2);
-         io.local.emit('hand', {
+         socket.emit('hand', {
 
             userHand: userHand
       });
