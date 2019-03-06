@@ -25,9 +25,9 @@ var numUsers = 0;
 var userPosition; 
 
 
-var cardDeck; //= deck.createPack();
-var myDeck; // = deck.shufflePack(cardDeck);
-var firstThreeCardsTable; // = deck.draw(myDeck, 3);
+var cardDeck = deck.createPack();
+var myDeck = deck.shufflePack(cardDeck);
+var firstThreeCardsTable = deck.draw(myDeck, 3);
 var secondRoundCard = deck.draw(myDeck, 1);
 var finalRoundCard = deck.draw(myDeck, 1);
 var userHand;
@@ -153,6 +153,9 @@ io.on('connection', (socket) => {
 
       
 
+      io.to('Room 1').emit('game start', {
+        firstThreeCardsTable: firstThreeCardsTable
+      });
     } else if(gameState == 1) {
 
       cardDeck = deck.createPack();
@@ -160,9 +163,6 @@ io.on('connection', (socket) => {
       firstThreeCardsTable = deck.draw(myDeck, 3);
 
 
-      io.to('Room 1').emit('game start', {
-        firstThreeCardsTable: firstThreeCardsTable
-      });
 
       io.to('Room 1').emit('roundOne', {
         gameState: gameState
