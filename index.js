@@ -138,11 +138,12 @@ io.on('connection', (socket) => {
   
 
     socket.on('change game state', () => {
-       cardDeck = deck.createPack();
-      myDeck = deck.shufflePack(cardDeck);
-
+      
       
    if(gameState == 0) {
+     cardDeck = deck.createPack();
+      myDeck = deck.shufflePack(cardDeck);
+
 
         userHand = deck.draw(myDeck, 2);
          socket.emit('hand', {
@@ -192,7 +193,7 @@ io.on('connection', (socket) => {
       });
 
 
-      gameState = 0;
+
 
     }
 
