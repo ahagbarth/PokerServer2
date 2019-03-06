@@ -153,16 +153,16 @@ io.on('connection', (socket) => {
 
       
 
-      io.to('Room 1').emit('game start', {
-        firstThreeCardsTable: firstThreeCardsTable
-      });
+      
     } else if(gameState == 1) {
 
       cardDeck = deck.createPack();
       myDeck = deck.shufflePack(cardDeck);
       firstThreeCardsTable = deck.draw(myDeck, 3);
 
-
+      io.to('Room 1').emit('game start', {
+        firstThreeCardsTable: firstThreeCardsTable
+      });
 
       io.to('Room 1').emit('roundOne', {
         gameState: gameState
