@@ -134,16 +134,18 @@ io.on('connection', (socket) => {
 
 
   socket.join("Room 1", (room) => {
-     cardDeck = deck.createPack();
-      myDeck = deck.shufflePack(cardDeck);
 
 
+
+    if (tableState == "unavailable") {
+
+    } else {
         userHand = deck.draw(myDeck, 2);
          socket.emit('hand', {
 
             userHand: userHand
       });
-  
+    }
 
     socket.on('change game state', () => {
 
@@ -155,11 +157,7 @@ io.on('connection', (socket) => {
       myDeck = deck.shufflePack(cardDeck);
 
 
-        userHand = deck.draw(myDeck, 2);
-         socket.emit('hand', {
-
-            userHand: userHand
-      });
+      
 
       io.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
