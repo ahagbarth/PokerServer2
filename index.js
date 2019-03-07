@@ -164,11 +164,11 @@ io.on('connection', (socket) => {
 
 
       
-
+/*
       io.to('Room 1').emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
       });
-
+*/
       
     } else if(gameState == 1) {
       tableState = "unavailable";
