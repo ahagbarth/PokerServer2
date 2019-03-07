@@ -126,6 +126,15 @@ io.on('connection', (socket) => {
     }
   });
 
+   socket.on('ReceiveCard', ()=>{
+      userHand = deck.draw(myDeck, 2);
+         socket.emit('hand', {
+
+            userHand: userHand
+      });
+        
+    });
+
 
 
 //////////////////Game Logic //////////////////////////////
@@ -146,14 +155,7 @@ io.on('connection', (socket) => {
         
     }
 
-    socket.on('ReceiveCard', ()=>{
-      userHand = deck.draw(myDeck, 2);
-         socket.emit('hand', {
 
-            userHand: userHand
-      });
-        
-    });
       
    if(gameState == 0) {
      cardDeck = deck.createPack();
