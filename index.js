@@ -163,6 +163,12 @@ io.on('connection', (socket) => {
         
     });
 
+ socket.on('pass_turn',function(){
+     if(users[_turn] == socket){
+        resetTimeOut();
+        next_turn();
+     }
+  })
 
 
 //////////////////Game Logic //////////////////////////////
@@ -172,12 +178,7 @@ io.on('connection', (socket) => {
 
   socket.join("Room 1", (room) => {
 
-  socket.on('pass_turn',function(){
-     if(users[_turn] == socket){
-        resetTimeOut();
-        next_turn();
-     }
-  })
+ 
 
     socket.on('change game state', () => {
 
