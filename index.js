@@ -178,11 +178,22 @@ io.on('connection', (socket) => {
 
   socket.join("Room 1", (room) => {
 
- 
+
 
     socket.on('change game state', () => {
 
+    mSocket.on('passTurn', ()=>{
+        current_turn += 1;
+        if(current_turn >= users.length) {
+          current_turn = 0; 
+        }
 
+        io.to('Room 1').emit('turn', {
+          current_turn: current_turn
+        }); 
+    });
+
+ 
 
 
     if (tableState == "unavailable") {
