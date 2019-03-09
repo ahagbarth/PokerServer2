@@ -32,35 +32,7 @@ var secondRoundCard = deck.draw(myDeck, 1);
 var finalRoundCard = deck.draw(myDeck, 1);
 var userHand;
 
-////////////////////
-let current_turn = 0;
-let timeOut;
-let _turn = 0;
-const MAX_WAITING = 5000;
 
-
-   function next_turn(){
-      _turn = current_turn++ % users.length;
-      users[_turn].emit('your_turn');
-      console.log("next turn triggered " , _turn);
-      triggerTimeout();
-   }
-
-   function triggerTimeout(){
-     timeOut = setTimeout(()=>{
-       next_turn();
-     },MAX_WAITING);
-   }
-
-   function resetTimeOut(){
-      if(typeof timeOut === 'object'){
-        console.log("timeout reset");
-        clearTimeout(timeOut);
-      }
-   }
-
-
-///////////////////
 
 var tableState;
 var gameState = 0;
@@ -163,12 +135,6 @@ io.on('connection', (socket) => {
         
     });
 
- socket.on('pass_turn',function(){
-     if(users[_turn] == socket){
-        resetTimeOut();
-        next_turn();
-     }
-  })
 
 
 //////////////////Game Logic //////////////////////////////
@@ -181,18 +147,6 @@ io.on('connection', (socket) => {
 
 
     socket.on('change game state', () => {
-
-    mSocket.on('passTurn', ()=>{
-        current_turn += 1;
-        if(current_turn >= users.length) {
-          current_turn = 0; 
-        }
-
-        io.to('Room 1').emit('turn', {
-          current_turn: current_turn
-        }); 
-    });
-
  
 
 
