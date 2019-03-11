@@ -140,13 +140,7 @@ io.on('connection', (socket) => {
    socket.on('pass_turn', {
     
     
-        if(users.indexOf(socket.username) == turnState) {
-          socket.emit('passTurn', {
-            turnState: turnState
-
-          });
         
-
 
 
     }
