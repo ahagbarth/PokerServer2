@@ -138,12 +138,12 @@ io.on('connection', (socket) => {
     });
 
    socket.on('pass_turn', {
-    var turn = "your turn";
+    
     if(numUsers > 1) {
 
         if(users.indexOf(socket.username) == turnState) {
           socket.emit('passTurn', {
-            turn: turn
+            turnState: turnState
 
           });
         }
