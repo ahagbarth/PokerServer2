@@ -33,7 +33,7 @@ var finalRoundCard = deck.draw(myDeck, 1);
 var userHand;
 
 //////////////////
-var turnState ;
+var turnState = 0;
 
 ////////////
 var tableState;
@@ -137,15 +137,21 @@ io.on('connection', (socket) => {
         
     });
 
-   socket.on('pass_turn', {
-    
-      
-        
+    socket.on('pass_turn', ()=>{
+     if(numUsers > 1) {
+        if(users.indexOf(socket.username) == turnState){
+          socket.emit('passTurn', {
+            turnState: turnState
+          })
+
+        }
+     }   
 
 
-   
+    });
+     
 
-   });
+  
 
 
 
