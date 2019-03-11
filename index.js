@@ -137,6 +137,7 @@ io.on('connection', (socket) => {
         
     });
 
+/*
     socket.on('pass_turn', ()=>{
      if(numUsers > 1) {
         if(users.indexOf(socket.username) == turnState){
@@ -150,7 +151,7 @@ io.on('connection', (socket) => {
 
     });
      
-
+*/
   
 
 
