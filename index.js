@@ -156,10 +156,19 @@ io.on('connection', (socket) => {
     var currentBet = 0;
     var tableBet = 0;
 
+    var maxRoundBet = 0;
+
 
     socket.on('betAmount', (data)=> {
       currentBet = data.betValue;
       var better = data.username;
+
+      if(currentBet > maxRoundBet){
+        maxRoundBet = currentBet;
+      } else {
+
+      }
+
       io.to('Room 1').emit('betMoney', {
         currentBet: currentBet,
         better: better
@@ -172,7 +181,8 @@ io.on('connection', (socket) => {
     // if(numUsers > 1) {
         //if(users.indexOf(socket.username) == turnState){
           io.to('Room 1').emit('passTurn', {
-            turnState: turnState
+            turnState: turnState,
+            maxRoundBet, maxRoundBet
           })
 
         //}
