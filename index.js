@@ -153,6 +153,20 @@ io.on('connection', (socket) => {
 
 
   socket.join("Room 1", (room) => {
+    var currentBet = 0;
+    var tableBet = 0;
+
+
+    socket.on('betAmount', (data)=> {
+      currentBet = data.betValue;
+      var better = data.username;
+      io.to('Room 1').emit('betMoney', {
+        currentBet: currentBet,
+        better: better
+      });
+
+
+    });
 
     socket.on('pass_turn', ()=>{
     // if(numUsers > 1) {
