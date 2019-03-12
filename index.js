@@ -37,7 +37,7 @@ var tableState;
 var gameState = 0;
 
 //////////////////
-    var turnState;
+    var turnState =0 ;
 
 
     ////////////
@@ -142,7 +142,23 @@ io.on('connection', (socket) => {
     });
 
 
+    socket.on('pass_turn', ()=>{
+    // if(numUsers > 1) {
+        //if(users.indexOf(socket.username) == turnState){
+          socket.emit('passTurn', {
+            turnState: turnState
+          })
 
+        //}
+        turnState += 1;
+        if(turnState>numUsers){
+          turnState = 0
+        }
+    // }   
+
+
+    });
+     
 
   
 
@@ -155,21 +171,6 @@ io.on('connection', (socket) => {
 
   socket.join("Room 1", (room) => {
 
-  socket.on('pass_turn', ()=>{
-    // if(numUsers > 1) {
-        //if(users.indexOf(socket.username) == turnState){
-          io.to('Room 1').emit('passTurn', {
-            turnState: turnState
-          })
-
-        //}
-        turnState += 1;
-        
-    // }   
-
-
-    });
-     
     
 
 
