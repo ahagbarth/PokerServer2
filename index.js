@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var users = [];
 var waitingList = [];
 var numUsers = 0;
-var userPosition; 
+var userPosition = 0; 
 
 
 var cardDeck = deck.createPack();
@@ -45,7 +45,7 @@ var gameState = 0;
 io.on('connection', (socket) => {
 
   var addedUser = false;
-  userPosition = users.indexOf(socket.username);
+  
 /*
   var cardDeck = deck.createPack();
   var myDeck = deck.shufflePack(cardDeck);
@@ -76,6 +76,7 @@ io.on('connection', (socket) => {
     } else {
       tableState = "available";
       users.push(socket.username);
+      userPosition = users.indexOf(socket.username);
     }
 
 
