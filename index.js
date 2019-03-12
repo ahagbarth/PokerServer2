@@ -164,9 +164,7 @@ io.on('connection', (socket) => {
 
         //}
         turnState += 1;
-        if(turnState>numUsers){
-          turnState = 0;
-        }
+        
     // }   
 
 
