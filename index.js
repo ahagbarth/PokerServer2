@@ -32,10 +32,7 @@ var secondRoundCard = deck.draw(myDeck, 1);
 var finalRoundCard = deck.draw(myDeck, 1);
 var userHand;
 
-//////////////////
-var turnState = 0;
 
-////////////
 var tableState;
 var gameState = 0;
 
@@ -137,7 +134,7 @@ io.on('connection', (socket) => {
         
     });
 
-/*
+
     socket.on('pass_turn', ()=>{
      if(numUsers > 1) {
         if(users.indexOf(socket.username) == turnState){
@@ -151,7 +148,7 @@ io.on('connection', (socket) => {
 
     });
      
-*/
+
   
 
 
@@ -163,6 +160,10 @@ io.on('connection', (socket) => {
 
   socket.join("Room 1", (room) => {
 
+    //////////////////
+    var turnState = 0;
+
+    ////////////
 
 
     socket.on('change game state', () => {
