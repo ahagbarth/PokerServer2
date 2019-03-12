@@ -37,7 +37,8 @@ var tableState;
 var gameState = 0;
 
 //////////////////
-    var turnState = 0;
+    var turnState;
+
 
     ////////////
 
@@ -85,7 +86,8 @@ io.on('connection', (socket) => {
       numUsers: numUsers,
       tableState: tableState,
       users: users,
-      waitingList: waitingList
+      waitingList: waitingList,
+      userPosition: userPosition
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
@@ -149,6 +151,9 @@ io.on('connection', (socket) => {
 
         //}
         turnState += 1;
+        if(turnState>numUsers){
+          turnState = 0;
+        }
     // }   
 
 
