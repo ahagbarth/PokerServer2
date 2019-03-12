@@ -143,6 +143,7 @@ io.on('connection', (socket) => {
           })
 
         }
+        turnState += 1;
      }   
 
 
