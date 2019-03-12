@@ -142,10 +142,23 @@ io.on('connection', (socket) => {
     });
 
 
-    socket.on('pass_turn', ()=>{
+
+
+  
+
+
+
+//////////////////Game Logic //////////////////////////////
+
+
+
+
+  socket.join("Room 1", (room) => {
+
+  socket.on('pass_turn', ()=>{
     // if(numUsers > 1) {
         //if(users.indexOf(socket.username) == turnState){
-          socket.emit('passTurn', {
+          io.to('Room 1').emit('passTurn', {
             turnState: turnState
           })
 
@@ -159,18 +172,6 @@ io.on('connection', (socket) => {
 
     });
      
-
-  
-
-
-
-//////////////////Game Logic //////////////////////////////
-
-
-
-
-  socket.join("Room 1", (room) => {
-
     
 
 
