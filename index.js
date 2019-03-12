@@ -36,6 +36,11 @@ var userHand;
 var tableState;
 var gameState = 0;
 
+//////////////////
+    var turnState = 0;
+
+    ////////////
+
 io.on('connection', (socket) => {
 
   var addedUser = false;
@@ -161,10 +166,7 @@ io.on('connection', (socket) => {
 
   socket.join("Room 1", (room) => {
 
-    //////////////////
-    var turnState = 0;
-
-    ////////////
+    
 
 
     socket.on('change game state', () => {
