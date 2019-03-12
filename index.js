@@ -38,7 +38,7 @@ var gameState = 0;
 
 //////////////////
     var turnState =0 ;
-
+    var changeTurns = 0;
 
     ////////////
 
@@ -140,6 +140,27 @@ io.on('connection', (socket) => {
       });
         
     });
+
+   socket.on('changeTurn', ()=>{
+      if(changeTurns == users.indexOf(socket.username)){
+       socket.emit('turnthis', {
+
+              changeTurns: changeTurns
+            });
+      }
+
+
+      changeTurns += 1;
+      if(changeTurns > numUsers){
+        changeTurns = 0;
+
+      }
+
+
+        
+        
+    });
+
 
 
     
