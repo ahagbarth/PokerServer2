@@ -169,7 +169,7 @@ io.on('connection', (socket) => {
 
       }
 
-      io.to('Room 1').emit('betMoney', {
+      socket.to('Room 1').emit('betMoney', {
         currentBet: currentBet,
         better: better
       });
@@ -182,7 +182,8 @@ io.on('connection', (socket) => {
         //if(users.indexOf(socket.username) == turnState){
           io.to('Room 1').emit('passTurn', {
             turnState: turnState,
-            maxRoundBet, maxRoundBet
+            maxRoundBet: maxRoundBet
+            
           })
 
         //}
@@ -199,7 +200,7 @@ io.on('connection', (socket) => {
 
     socket.on('change game state', () => {
  
-
+    tableBet = maxRoundBet;
 
     if (tableState == "unavailable") {
 
@@ -231,7 +232,8 @@ io.on('connection', (socket) => {
 
       io.to('Room 1').emit('roundOne', {
         firstThreeCardsTable: firstThreeCardsTable,
-        gameState: gameState
+        gameState: gameState,
+        tableBet: tableBet
       });
 
     } else if(gameState == 2) {
@@ -241,7 +243,8 @@ io.on('connection', (socket) => {
 
       io.to('Room 1').emit('roundTwo', {
         secondRoundCard: secondRoundCard,
-        gameState: gameState
+        gameState: gameState,
+        tableBet: tableBet
       });
 
     } else if(gameState == 3) {
@@ -250,13 +253,15 @@ io.on('connection', (socket) => {
 
       io.to('Room 1').emit('roundThree', {
         finalRoundCard: finalRoundCard,
-        gameState: gameState
+        gameState: gameState,
+        tableBet: tableBet
       });
 
     } else if(gameState == 4) {
 
       io.to('Room 1').emit('finalRound', {
-        gameState: gameState
+        gameState: gameState,
+        tableBet: tableBet
       });
 
 
