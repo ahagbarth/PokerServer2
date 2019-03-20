@@ -157,6 +157,18 @@ io.on('connection', (socket) => {
     var tableBet = 0;
 
     var maxRoundBet = 0;
+    var usersFold = [];
+    var usersStillPlaying = [];
+
+    socket.on('fold', (data)=>{
+      usersFold.push(socket.username);
+    });
+
+    socket.on('callBet', ()=>{
+
+      io.to('Room 1').emit('betCall',)
+
+    });
 
 
     socket.on('betAmount', (data)=> {
