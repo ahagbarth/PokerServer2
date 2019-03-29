@@ -8,6 +8,7 @@ var port = process.env.PORT || 3000;
 
 //Calls Deck class to generate deck and shuffle deck
 const deck = require('./Cards.js');
+const compare = require('./HandStrength.js');
 
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
@@ -270,6 +271,9 @@ io.on('connection', (socket) => {
       });
 
     } else if(gameState == 4) {
+
+
+
 
       io.to('Room 1').emit('finalRound', {
         gameState: gameState,
