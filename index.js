@@ -32,6 +32,7 @@ var firstThreeCardsTable = deck.draw(myDeck, 3);
 var secondRoundCard = deck.draw(myDeck, 1);
 var finalRoundCard = deck.draw(myDeck, 1);
 var userHand;
+var userHandCompare;
 
 
 var tableState;
@@ -141,6 +142,14 @@ io.on('connection', (socket) => {
             userHand: userHand
       });
         
+    });
+
+    socket.on('EndGameResults', ()=>{
+
+      socket.emit('HandCompare', {
+        userHandCompare:userHandCompare
+      });
+
     });
 
 
@@ -272,6 +281,7 @@ io.on('connection', (socket) => {
 
     } else if(gameState == 4) {
 
+      userHandCompare = compare.handStrength(userHand, firstThreeCardsTable, secondRoundCard, finalRoundCard);
 
 
 

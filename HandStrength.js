@@ -55,10 +55,10 @@ function handStrength(hand , firstThreeCards , fourthCard, fifthCard) {
 	var handResult = handValue.handResult(HandCard1 , HandCard2 ,card1Matches, card2Matches);
 
 
-	console.log("" + card1Matches + "    /   " + card2Matches + "    /  result: " + handResult);
+	//console.log("" + card1Matches + "    /   " + card2Matches + "    /  result: " + handResult);
 
 
-	//return strength;
+	return handResult;
 }
 
 
