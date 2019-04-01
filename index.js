@@ -40,7 +40,7 @@ var gameState = 0;
 
 //////////////////
     var turnState =0 ;
-    var roomName; 
+    
 
     ////////////
 
@@ -153,170 +153,165 @@ io.on('connection', (socket) => {
 
     });
 
-    socket.on('room', (room)=>{
-      roomName = room;
-    });
-
-
-
-
 //////////////////Game Logic //////////////////////////////
 /*
 socket.on("roomName", ()=>{
 
 
 });
-
 */
-  socket.join(roomName, (room) => {
-    var currentBet = 0;
-    var tableBet = 0;
-
-    var maxRoundBet = 0;
-    var usersFold = [];
-    var usersStillPlaying = [];
-
-    socket.on('fold', (data)=>{
-      usersFold.push(socket.username);
-    });
-
-    socket.on('callBet', ()=>{
-
-      io.to(roomName).emit('betCall',)
-
-    });
-
-
-    socket.on('betAmount', (data)=> {
-      currentBet = data.betValue;
-      var better = data.username;
-
-      if(currentBet > maxRoundBet){
-        maxRoundBet = currentBet;
-      } else {
-
-      }
-
-      socket.to(roomName).emit('betMoney', {
-        currentBet: currentBet,
-        better: better
+  socket.on('room', (roomName)=>{
+    socket.join(roomName, (room) => {
+      var currentBet = 0;
+      var tableBet = 0;
+  
+      var maxRoundBet = 0;
+      var usersFold = [];
+      var usersStillPlaying = [];
+  
+      socket.on('fold', (data)=>{
+        usersFold.push(socket.username);
       });
-
-
-    });
-
-    socket.on('pass_turn', ()=>{
-    // if(numUsers > 1) {
-        //if(users.indexOf(socket.username) == turnState){
-          io.to(roomName).emit('passTurn', {
-            turnState: turnState,
-            maxRoundBet: maxRoundBet
-            
-          })
-
-        //}
-        turnState += 1;
-        if(turnState>numUsers-1){
-          turnState = 0;
+  
+      socket.on('callBet', ()=>{
+  
+        io.to(roomName).emit('betCall',)
+  
+      });
+  
+  
+      socket.on('betAmount', (data)=> {
+        currentBet = data.betValue;
+        var better = data.username;
+  
+        if(currentBet > maxRoundBet){
+          maxRoundBet = currentBet;
+        } else {
+  
         }
-    // }   
-
-
-    });
-     
-
-
-    socket.on('change game state', () => {
- 
-    tableBet = maxRoundBet;
-
-    if (tableState == "unavailable") {
-
-    } else {
-        
-    }
-
-
-      
-   if(gameState == 0) {
-     cardDeck = deck.createPack();
-      myDeck = deck.shufflePack(cardDeck);
-
-
-
-      
-
-      io.to(roomName).emit('game start', {
-        firstThreeCardsTable: firstThreeCardsTable
+  
+        socket.to(roomName).emit('betMoney', {
+          currentBet: currentBet,
+          better: better
+        });
+  
+  
       });
-
-      
-    } else if(gameState == 1) {
-      tableState = "unavailable";
-     
-      firstThreeCardsTable = deck.draw(myDeck, 3);
-
-      
-
-      io.to(roomName).emit('roundOne', {
-        firstThreeCardsTable: firstThreeCardsTable,
-        gameState: gameState,
-        tableBet: tableBet,
-        roomName: roomName
+  
+      socket.on('pass_turn', ()=>{
+      // if(numUsers > 1) {
+          //if(users.indexOf(socket.username) == turnState){
+            io.to(roomName).emit('passTurn', {
+              turnState: turnState,
+              maxRoundBet: maxRoundBet
+              
+            })
+  
+          //}
+          turnState += 1;
+          if(turnState>numUsers-1){
+            turnState = 0;
+          }
+      // }   
+  
+  
       });
-
-    } else if(gameState == 2) {
-
-
-      secondRoundCard = deck.draw(myDeck, 1);
-
-      io.to(roomName).emit('roundTwo', {
-        secondRoundCard: secondRoundCard,
-        gameState: gameState,
-        tableBet: tableBet
-      });
-
-    } else if(gameState == 3) {
-
-      finalRoundCard = deck.draw(myDeck, 1);
-
-      io.to(roomName).emit('roundThree', {
-        finalRoundCard: finalRoundCard,
-        gameState: gameState,
-        tableBet: tableBet
-      });
-
-    } else if(gameState == 4) {
-
-      userHandCompare = compare.handStrength(userHand, firstThreeCardsTable, secondRoundCard, finalRoundCard);
-      
-
-
-      io.to(roomName).emit('finalRound', {
-        gameState: gameState,
-        tableBet: tableBet
-      });
-
-
-
-
-    }
-
-    gameState += 1;
-
-      if(gameState == 5) {
-        tableState = "available";
-        gameState = 0;
+       
+  
+  
+      socket.on('change game state', () => {
+   
+      tableBet = maxRoundBet;
+  
+      if (tableState == "unavailable") {
+  
+      } else {
+          
       }
-
-
-
+  
+  
+        
+     if(gameState == 0) {
+       cardDeck = deck.createPack();
+        myDeck = deck.shufflePack(cardDeck);
+  
+  
+  
+        
+  
+        io.to(roomName).emit('game start', {
+          firstThreeCardsTable: firstThreeCardsTable
+        });
+  
+        
+      } else if(gameState == 1) {
+        tableState = "unavailable";
+       
+        firstThreeCardsTable = deck.draw(myDeck, 3);
+  
+        
+  
+        io.to(roomName).emit('roundOne', {
+          firstThreeCardsTable: firstThreeCardsTable,
+          gameState: gameState,
+          tableBet: tableBet,
+          roomName: roomName
+        });
+  
+      } else if(gameState == 2) {
+  
+  
+        secondRoundCard = deck.draw(myDeck, 1);
+  
+        io.to(roomName).emit('roundTwo', {
+          secondRoundCard: secondRoundCard,
+          gameState: gameState,
+          tableBet: tableBet
+        });
+  
+      } else if(gameState == 3) {
+  
+        finalRoundCard = deck.draw(myDeck, 1);
+  
+        io.to(roomName).emit('roundThree', {
+          finalRoundCard: finalRoundCard,
+          gameState: gameState,
+          tableBet: tableBet
+        });
+  
+      } else if(gameState == 4) {
+  
+        userHandCompare = compare.handStrength(userHand, firstThreeCardsTable, secondRoundCard, finalRoundCard);
+        
+  
+  
+        io.to(roomName).emit('finalRound', {
+          gameState: gameState,
+          tableBet: tableBet
+        });
+  
+  
+  
+  
+      }
+  
+      gameState += 1;
+  
+        if(gameState == 5) {
+          tableState = "available";
+          gameState = 0;
+        }
+  
+  
+  
+      });
+  
+  
+  
+   
     });
-
-
-
- 
-  });
+    });
+  
 
 
 
