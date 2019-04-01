@@ -245,8 +245,7 @@ socket.on("roomName", ()=>{
       
 
       io.to(roomName).emit('game start', {
-        firstThreeCardsTable: firstThreeCardsTable,
-        roomName: roomName
+        firstThreeCardsTable: firstThreeCardsTable
       });
 
       
@@ -260,7 +259,8 @@ socket.on("roomName", ()=>{
       io.to(roomName).emit('roundOne', {
         firstThreeCardsTable: firstThreeCardsTable,
         gameState: gameState,
-        tableBet: tableBet
+        tableBet: tableBet,
+        roomName: roomName
       });
 
     } else if(gameState == 2) {
