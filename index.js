@@ -40,7 +40,7 @@ var gameState = 0;
 
 //////////////////
     var turnState =0 ;
-    
+    var roomName; 
 
     ////////////
 
@@ -64,12 +64,13 @@ io.on('connection', (socket) => {
   });
 
   // when the client emits 'add user', this listens and executes
-  socket.on('add user', (username) => {
+  socket.on('add user', (username, room) => {
     if (addedUser) return;
 
     // we store the username in the socket session for this client
     socket.username = username;
-
+    roomName = room;
+    
     if(numUsers > 5) {
       tableState = "unavailable";
 
@@ -158,11 +159,14 @@ io.on('connection', (socket) => {
 
 
 //////////////////Game Logic //////////////////////////////
+/*
+socket.on("roomName", ()=>{
 
 
+});
 
-
-  socket.join("Room 1", (room) => {
+*/
+  socket.join(roomName, (room) => {
     var currentBet = 0;
     var tableBet = 0;
 
@@ -176,7 +180,7 @@ io.on('connection', (socket) => {
 
     socket.on('callBet', ()=>{
 
-      io.to('Room 1').emit('betCall',)
+      io.to(roomName).emit('betCall',)
 
     });
 
@@ -191,7 +195,7 @@ io.on('connection', (socket) => {
 
       }
 
-      socket.to('Room 1').emit('betMoney', {
+      socket.to(roomName).emit('betMoney', {
         currentBet: currentBet,
         better: better
       });
@@ -202,7 +206,7 @@ io.on('connection', (socket) => {
     socket.on('pass_turn', ()=>{
     // if(numUsers > 1) {
         //if(users.indexOf(socket.username) == turnState){
-          io.to('Room 1').emit('passTurn', {
+          io.to(roomName).emit('passTurn', {
             turnState: turnState,
             maxRoundBet: maxRoundBet
             
@@ -240,7 +244,7 @@ io.on('connection', (socket) => {
 
       
 
-      io.to('Room 1').emit('game start', {
+      io.to(roomName).emit('game start', {
         firstThreeCardsTable: firstThreeCardsTable
       });
 
@@ -252,7 +256,7 @@ io.on('connection', (socket) => {
 
       
 
-      io.to('Room 1').emit('roundOne', {
+      io.to(roomName).emit('roundOne', {
         firstThreeCardsTable: firstThreeCardsTable,
         gameState: gameState,
         tableBet: tableBet
@@ -263,7 +267,7 @@ io.on('connection', (socket) => {
 
       secondRoundCard = deck.draw(myDeck, 1);
 
-      io.to('Room 1').emit('roundTwo', {
+      io.to(roomName).emit('roundTwo', {
         secondRoundCard: secondRoundCard,
         gameState: gameState,
         tableBet: tableBet
@@ -273,7 +277,7 @@ io.on('connection', (socket) => {
 
       finalRoundCard = deck.draw(myDeck, 1);
 
-      io.to('Room 1').emit('roundThree', {
+      io.to(roomName).emit('roundThree', {
         finalRoundCard: finalRoundCard,
         gameState: gameState,
         tableBet: tableBet
@@ -282,10 +286,10 @@ io.on('connection', (socket) => {
     } else if(gameState == 4) {
 
       userHandCompare = compare.handStrength(userHand, firstThreeCardsTable, secondRoundCard, finalRoundCard);
+      
 
 
-
-      io.to('Room 1').emit('finalRound', {
+      io.to(roomName).emit('finalRound', {
         gameState: gameState,
         tableBet: tableBet
       });
