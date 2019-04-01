@@ -54,6 +54,41 @@ io.on('connection', (socket) => {
   var firstThreeCardsTable = deck.draw(myDeck, 3);
   */
 
+   socket.on('ReceiveCard', ()=>{
+      userHand = deck.draw(myDeck, 2);
+         socket.emit('hand', {
+
+            userHand: userHand
+      });
+        
+    });
+
+    socket.on('EndGameResults', ()=>{
+
+      socket.emit('HandCompare', {
+        userHandCompare:userHandCompare
+      });
+
+    });
+
+//////////////////Game Logic //////////////////////////////
+/*
+socket.on("roomName", ()=>{
+
+
+});
+*/
+  socket.on('room', (roomName)=>{
+
+    socket.join(roomName, (room) => {
+      var currentBet = 0;
+      var tableBet = 0;
+  
+      var maxRoundBet = 0;
+      var usersFold = [];
+      var usersStillPlaying = [];
+
+
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
     // we tell the client to execute 'new message'
@@ -136,39 +171,7 @@ io.on('connection', (socket) => {
     }
   });
 
-   socket.on('ReceiveCard', ()=>{
-      userHand = deck.draw(myDeck, 2);
-         socket.emit('hand', {
 
-            userHand: userHand
-      });
-        
-    });
-
-    socket.on('EndGameResults', ()=>{
-
-      socket.emit('HandCompare', {
-        userHandCompare:userHandCompare
-      });
-
-    });
-
-//////////////////Game Logic //////////////////////////////
-/*
-socket.on("roomName", ()=>{
-
-
-});
-*/
-  socket.on('room', (roomName)=>{
-    
-    socket.join(roomName, (room) => {
-      var currentBet = 0;
-      var tableBet = 0;
-  
-      var maxRoundBet = 0;
-      var usersFold = [];
-      var usersStillPlaying = [];
   
       socket.on('fold', (data)=>{
         usersFold.push(socket.username);
