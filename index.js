@@ -161,6 +161,7 @@ socket.on("roomName", ()=>{
 });
 */
   socket.on('room', (roomName)=>{
+    
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
