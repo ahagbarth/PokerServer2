@@ -64,12 +64,12 @@ io.on('connection', (socket) => {
   });
 
   // when the client emits 'add user', this listens and executes
-  socket.on('add user', (username, room) => {
+  socket.on('add user', (username) => {
     if (addedUser) return;
 
     // we store the username in the socket session for this client
     socket.username = username;
-    roomName = room;
+    
     
     if(numUsers > 5) {
       tableState = "unavailable";
@@ -153,7 +153,9 @@ io.on('connection', (socket) => {
 
     });
 
-
+    socket.on('room', (room)=>{
+      roomName = room;
+    });
 
 
 
