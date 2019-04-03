@@ -40,7 +40,6 @@ var tableState;
 
 //////////////////
     var turnState =0 ;
-    
 
     ////////////
 
