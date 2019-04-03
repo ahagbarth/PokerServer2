@@ -90,19 +90,7 @@ io.on('connection', (socket) => {
       });
 
     });
-    io.to(roomName).emit('login', {
-      numUsers: numUsers,
-      tableState: tableState,
-      users: users,
-      waitingList: waitingList,
-      userPosition: userPosition
-    });
-    // echo globally (all clients) that a person has connected
-    socket.to(roomName).emit('user joined', {
-      username: socket.username,
-      numUsers: numUsers,
-      users: users
-    });   
+    
 
 
 //////////////////Game Logic //////////////////////////////
@@ -154,7 +142,19 @@ var userPosition = 0;
           ++numUsers;
           addedUser = true;
           
-         
+          io.to(roomName).emit('login', {
+            numUsers: numUsers,
+            tableState: tableState,
+            users: users,
+            waitingList: waitingList,
+            userPosition: userPosition
+          });
+          // echo globally (all clients) that a person has connected
+          socket.to(roomName).emit('user joined', {
+            username: socket.username,
+            numUsers: numUsers,
+            users: users
+          });   
 
 
 // when the user disconnects.. perform this
