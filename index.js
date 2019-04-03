@@ -30,7 +30,11 @@ var userHandCompare;
 
 
 var tableState;
-
+var gameState;
+var users = [];
+var waitingList = [];
+var numUsers;
+var userPosition; 
 
 //////////////////
 
@@ -109,17 +113,13 @@ socket.on('add user', (username) => {
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      var gameState;
+      
       var turnState =0;
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
       // Chatroom
 
-var users = [];
-var waitingList = [];
-var numUsers = 0;
-var userPosition = 0; 
      // when the client emits 'add user', this listens and executes
          
           if (addedUser) return;
