@@ -36,7 +36,7 @@ var waitingList = [];
 var numUsers = 0;
 var userPosition; 
 var users = [];
-var gameState =0;
+
 //////////////////
 
 
@@ -119,7 +119,7 @@ socket.on('add user', (username) => {
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
-      
+      var gameState =0;
       // Chatroom
 
      // when the client emits 'add user', this listens and executes
