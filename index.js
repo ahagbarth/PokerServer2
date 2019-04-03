@@ -31,9 +31,9 @@ var userHandCompare;
 
 var tableState;
 var gameState =0;
-var users = [];
+
 var waitingList = [];
-var numUsers =0;
+var numUsers = 0;
 var userPosition; 
 
 //////////////////
@@ -113,7 +113,7 @@ socket.on('add user', (username) => {
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      
+      var users = [];
       var turnState =0;
       var maxRoundBet = 0;
       var usersFold = [];
