@@ -18,12 +18,6 @@ server.listen(port, () => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Chatroom
-
-var users = [];
-var waitingList = [];
-var numUsers = 0;
-var userPosition = 0; 
 
 
 var cardDeck = deck.createPack();
@@ -152,6 +146,13 @@ socket.on("roomName", ()=>{
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
+      // Chatroom
+
+var users = [];
+var waitingList = [];
+var numUsers = 0;
+var userPosition = 0; 
+
 
 
     io.to(roomName).emit('login', {
