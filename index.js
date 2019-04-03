@@ -62,44 +62,7 @@ io.on('connection', (socket) => {
     });
   });
 
-  // when the client emits 'add user', this listens and executes
-  socket.on('add user', (username) => {
-    if (addedUser) return;
-
-    // we store the username in the socket session for this client
-    socket.username = username;
-    
-    
-    if(numUsers > 5) {
-      tableState = "unavailable";
-
-
-      waitingList.push(socket.username);
-    } else {
-      tableState = "available";
-      users.push(socket.username);
-      userPosition = users.indexOf(socket.username);
-    }
-
-
-    
-    ++numUsers;
-    addedUser = true;
-    socket.emit('login', {
-      numUsers: numUsers,
-      tableState: tableState,
-      users: users,
-      waitingList: waitingList,
-      userPosition: userPosition
-    });
-    // echo globally (all clients) that a person has connected
-    socket.broadcast.emit('user joined', {
-      username: socket.username,
-      numUsers: numUsers,
-      users: users
-    });
-
-
+ 
 
   });
 
@@ -166,6 +129,48 @@ socket.on("roomName", ()=>{
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
+
+
+
+ // when the client emits 'add user', this listens and executes
+ socket.on('add user', (username) => {
+  if (addedUser) return;
+
+  // we store the username in the socket session for this client
+  socket.username = username;
+  
+  
+  if(numUsers > 5) {
+    tableState = "unavailable";
+
+
+    waitingList.push(socket.username);
+  } else {
+    tableState = "available";
+    users.push(socket.username);
+    userPosition = users.indexOf(socket.username);
+  }
+
+
+  
+  ++numUsers;
+  addedUser = true;
+  io.in(roomName).emit('login', {
+    numUsers: numUsers,
+    tableState: tableState,
+    users: users,
+    waitingList: waitingList,
+    userPosition: userPosition
+  });
+  // echo globally (all clients) that a person has connected
+  socket.to(roomName).emit('user joined', {
+    username: socket.username,
+    numUsers: numUsers,
+    users: users
+  });
+
+
+
   
       socket.on('fold', (data)=>{
         usersFold.push(socket.username);
