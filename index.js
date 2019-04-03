@@ -52,6 +52,29 @@ io.on('connection', (socket) => {
   var myDeck = deck.shufflePack(cardDeck);
   var firstThreeCardsTable = deck.draw(myDeck, 3);
   */
+         // when the client emits 'add user', this listens and executes
+         socket.on('add user', (username) => {
+          if (addedUser) return;
+      
+          // we store the username in the socket session for this client
+          socket.username = username;
+          
+          
+          if(numUsers > 5) {
+            tableState = "unavailable";
+      
+      
+            waitingList.push(socket.username);
+          } else {
+            tableState = "available";
+            users.push(socket.username);
+            userPosition = users.indexOf(socket.username);
+          }
+      
+          ++numUsers;
+          addedUser = true;
+          
+        });
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -130,29 +153,7 @@ socket.on("roomName", ()=>{
       var usersFold = [];
       var usersStillPlaying = [];
 
-       // when the client emits 'add user', this listens and executes
-  socket.on('add user', (username) => {
-    if (addedUser) return;
 
-    // we store the username in the socket session for this client
-    socket.username = username;
-    
-    
-    if(numUsers > 5) {
-      tableState = "unavailable";
-
-
-      waitingList.push(socket.username);
-    } else {
-      tableState = "available";
-      users.push(socket.username);
-      userPosition = users.indexOf(socket.username);
-    }
-
-
-    
-    ++numUsers;
-    addedUser = true;
     io.to(roomName).emit('login', {
       numUsers: numUsers,
       tableState: tableState,
@@ -169,7 +170,7 @@ socket.on("roomName", ()=>{
 
 
 
-  });
+
 
   
       socket.on('fold', (data)=>{
