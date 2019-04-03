@@ -117,23 +117,7 @@ io.on('connection', (socket) => {
     });
   });
 
-  // when the user disconnects.. perform this
-  socket.on('disconnect', () => {
-    if (addedUser) {
-      socket.leave("Room 1");
-      --numUsers;
 
-      users.splice( userPosition, 1 );
-      waitingList.splice(waitingList.indexOf(socket.username), 1);
-
-      // echo globally that this client has left
-      socket.broadcast.emit('user left', {
-        username: socket.username,
-        numUsers: numUsers,
-        users: users
-      });
-    }
-  });
 
    socket.on('ReceiveCard', ()=>{
       userHand = deck.draw(myDeck, 2);
@@ -162,7 +146,7 @@ socket.on("roomName", ()=>{
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      var gameState = 0;
+      var gameState;
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
@@ -305,9 +289,25 @@ socket.on("roomName", ()=>{
       });
   
   
+    // when the user disconnects.. perform this
+    socket.on('disconnect', () => {
+      if (addedUser) {
+        socket.leave(roomName);
+        --numUsers;
   
-   
+        users.splice( userPosition, 1 );
+        waitingList.splice(waitingList.indexOf(socket.username), 1);
+  
+        // echo globally that this client has left
+        socket.to(roomName).emit('user left', {
+          username: socket.username,
+          numUsers: numUsers,
+          users: users
+        });
+      }
     });
+   
+    });    
     });
   
 
