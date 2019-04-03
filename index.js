@@ -18,6 +18,12 @@ server.listen(port, () => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+// Chatroom
+
+var users = [];
+var waitingList = [];
+var numUsers = 0;
+var userPosition = 0; 
 
 
 var cardDeck = deck.createPack();
@@ -32,13 +38,8 @@ var userHandCompare;
 var tableState;
 
 
-var waitingList = [];
-var numUsers = 0;
-var userPosition; 
-var users = [];
-var gameState =0;
 //////////////////
-
+    var turnState =0 ;
 
     ////////////
 
@@ -51,7 +52,6 @@ io.on('connection', (socket) => {
   var myDeck = deck.shufflePack(cardDeck);
   var firstThreeCardsTable = deck.draw(myDeck, 3);
   */
-    
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
@@ -62,7 +62,47 @@ io.on('connection', (socket) => {
     });
   });
 
- 
+  // when the client emits 'add user', this listens and executes
+  socket.on('add user', (username) => {
+    if (addedUser) return;
+
+    // we store the username in the socket session for this client
+    socket.username = username;
+    
+    
+    if(numUsers > 5) {
+      tableState = "unavailable";
+
+
+      waitingList.push(socket.username);
+    } else {
+      tableState = "available";
+      users.push(socket.username);
+      userPosition = users.indexOf(socket.username);
+    }
+
+
+    
+    ++numUsers;
+    addedUser = true;
+    socket.emit('login', {
+      numUsers: numUsers,
+      tableState: tableState,
+      users: users,
+      waitingList: waitingList,
+      userPosition: userPosition
+    });
+    // echo globally (all clients) that a person has connected
+    socket.broadcast.emit('user joined', {
+      username: socket.username,
+      numUsers: numUsers,
+      users: users
+    });
+
+
+
+  });
+
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', () => {
     socket.broadcast.emit('typing', {
@@ -77,7 +117,23 @@ io.on('connection', (socket) => {
     });
   });
 
-  
+  // when the user disconnects.. perform this
+  socket.on('disconnect', () => {
+    if (addedUser) {
+      socket.leave("Room 1");
+      --numUsers;
+
+      users.splice( userPosition, 1 );
+      waitingList.splice(waitingList.indexOf(socket.username), 1);
+
+      // echo globally that this client has left
+      socket.broadcast.emit('user left', {
+        username: socket.username,
+        numUsers: numUsers,
+        users: users
+      });
+    }
+  });
 
    socket.on('ReceiveCard', ()=>{
       userHand = deck.draw(myDeck, 2);
@@ -95,82 +151,21 @@ io.on('connection', (socket) => {
       });
 
     });
-    
-
 
 //////////////////Game Logic //////////////////////////////
 /*
 socket.on("roomName", ()=>{
-
-
 });
 */
-socket.on('add user', (username) => {
-
-  
-
   socket.on('room', (roomName)=>{
     
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      
-      var turnState =0;
+      var gameState = 0;
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
-      
-      // Chatroom
-
-     // when the client emits 'add user', this listens and executes
-         
-          if (addedUser) return;
-      
-          // we store the username in the socket session for this client
-          socket.username = username;
-      
-            users.push(socket.username);
-            userPosition = users.indexOf(socket.username);
-     
-      
-          ++numUsers;
-          addedUser = true;
-          
-          io.to(roomName).emit('login', {
-            numUsers: numUsers,
-            tableState: tableState,
-            users: users,
-            waitingList: waitingList,
-            userPosition: userPosition
-          });
-          // echo globally (all clients) that a person has connected
-          socket.to(roomName).emit('user joined', {
-            username: socket.username,
-            numUsers: numUsers,
-            users: users
-          });   
-
-
-// when the user disconnects.. perform this
-socket.on('disconnect', () => {
-  if (addedUser) {
-    socket.leave(roomName);
-    --numUsers;
-
-    users.splice( userPosition, 1 );
-    waitingList.splice(waitingList.indexOf(socket.username), 1);
-
-    // echo globally that this client has left
-    socket.to(roomName).emit('user left', {
-      username: socket.username,
-      numUsers: numUsers,
-      users: users
-    });
-  }
-});
-
-
-
   
       socket.on('fold', (data)=>{
         usersFold.push(socket.username);
@@ -322,5 +317,5 @@ socket.on('disconnect', () => {
 
 /////////////////////////////////////////////////////////////
 
-});
+
 });
