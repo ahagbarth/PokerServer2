@@ -90,6 +90,20 @@ io.on('connection', (socket) => {
       });
 
     });
+    io.to(roomName).emit('login', {
+      numUsers: numUsers,
+      tableState: tableState,
+      users: users,
+      waitingList: waitingList,
+      userPosition: userPosition
+    });
+    // echo globally (all clients) that a person has connected
+    socket.to(roomName).emit('user joined', {
+      username: socket.username,
+      numUsers: numUsers,
+      users: users
+    });   
+
 
 //////////////////Game Logic //////////////////////////////
 /*
@@ -107,7 +121,7 @@ socket.on('add user', (username) => {
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      var gameState = 0;
+      var gameState;
       var turnState =0;
       var maxRoundBet = 0;
       var usersFold = [];
@@ -140,20 +154,7 @@ var userPosition = 0;
           ++numUsers;
           addedUser = true;
           
-          io.to(roomName).emit('login', {
-            numUsers: numUsers,
-            tableState: tableState,
-            users: users,
-            waitingList: waitingList,
-            userPosition: userPosition
-          });
-          // echo globally (all clients) that a person has connected
-          socket.to(roomName).emit('user joined', {
-            username: socket.username,
-            numUsers: numUsers,
-            users: users
-          });   
-
+         
 
 
 // when the user disconnects.. perform this
