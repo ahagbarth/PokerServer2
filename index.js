@@ -30,7 +30,7 @@ var userHandCompare;
 
 
 var tableState;
-var gameState =0;
+
 
 var waitingList = [];
 var numUsers = 0;
@@ -118,6 +118,7 @@ socket.on('add user', (username) => {
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
+      var gameState =0;
       // Chatroom
 
      // when the client emits 'add user', this listens and executes
@@ -126,18 +127,10 @@ socket.on('add user', (username) => {
       
           // we store the username in the socket session for this client
           socket.username = username;
-          
-          
-          if(numUsers > 5) {
-            tableState = "unavailable";
       
-      
-            waitingList.push(socket.username);
-          } else {
-            tableState = "available";
             users.push(socket.username);
             userPosition = users.indexOf(socket.username);
-          }
+     
       
           ++numUsers;
           addedUser = true;
