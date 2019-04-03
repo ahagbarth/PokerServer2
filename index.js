@@ -30,10 +30,10 @@ var userHandCompare;
 
 
 var tableState;
-var gameState;
+var gameState =0;
 var users = [];
 var waitingList = [];
-var numUsers;
+var numUsers =0;
 var userPosition; 
 
 //////////////////
