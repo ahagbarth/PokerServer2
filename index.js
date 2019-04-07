@@ -146,7 +146,7 @@ socket.on("roomName", ()=>{
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      
+      gameState;
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
