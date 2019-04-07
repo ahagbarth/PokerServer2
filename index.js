@@ -271,10 +271,7 @@ socket.on("roomName", ()=>{
           gameState: gameState,
           tableBet: tableBet
         });
-  
-  
-  
-  
+
       }
   
       gameState += 1;
