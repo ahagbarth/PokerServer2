@@ -34,7 +34,7 @@ var finalRoundCard = deck.draw(myDeck, 1);
 var userHand;
 var userHandCompare;
 
-var gameState = 0;
+
 var tableState;
 
 
@@ -146,7 +146,7 @@ socket.on("roomName", ()=>{
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      
+      var gameState;
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
@@ -204,12 +204,7 @@ socket.on("roomName", ()=>{
       socket.on('change game state', () => {
    
       tableBet = maxRoundBet;
-  
-      if (tableState == "unavailable") {
-  
-      } else {
-          
-      }
+
   
   
         
