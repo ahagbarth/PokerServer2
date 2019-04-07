@@ -204,7 +204,12 @@ socket.on("roomName", ()=>{
       socket.on('change game state', () => {
    
       tableBet = maxRoundBet;
-
+  
+      if (tableState == "unavailable") {
+  
+      } else {
+          
+      }
   
   
         
