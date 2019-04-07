@@ -36,7 +36,7 @@ var userHandCompare;
 
 
 var tableState;
-var gameState = 0;
+
 
 //////////////////
     var turnState =0 ;
@@ -146,7 +146,7 @@ socket.on("roomName", ()=>{
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      var gameState;
+      //var gameState;
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
@@ -201,8 +201,8 @@ socket.on("roomName", ()=>{
        
   
   
-      socket.on('change game state', () => {
-   
+      socket.on('change game state', (state) => {
+      var gameState = state;
       tableBet = maxRoundBet;
   
       if (tableState == "unavailable") {
@@ -291,7 +291,7 @@ socket.on("roomName", ()=>{
    // when the user disconnects.. perform this
    socket.on('disconnect', () => {
     if (addedUser) {
-      socket.leave("Room 1");
+      socket.leave(roomName);
       --numUsers;
 
       users.splice( userPosition, 1 );
