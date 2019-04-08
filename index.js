@@ -103,6 +103,22 @@ io.on('connection', (socket) => {
 
   });
 
+  // when the client emits 'typing', we broadcast it to others
+  socket.on('typing', () => {
+    socket.broadcast.emit('typing', {
+      username: socket.username
+    });
+  });
+
+  // when the client emits 'stop typing', we broadcast it to others
+  socket.on('stop typing', () => {
+    socket.broadcast.emit('stop typing', {
+      username: socket.username
+    });
+  });
+
+ 
+
    socket.on('ReceiveCard', ()=>{
       userHand = deck.draw(myDeck, 2);
          socket.emit('hand', {
