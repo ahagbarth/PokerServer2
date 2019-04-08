@@ -218,13 +218,13 @@ socket.on("roomName", ()=>{
        cardDeck = deck.createPack();
         myDeck = deck.shufflePack(cardDeck);
   
-  
+  // 
   
         
   
         io.to(roomName).emit('game start', {
-          firstThreeCardsTable: firstThreeCardsTable,
-          userNumber: userNumber
+          firstThreeCardsTable: firstThreeCardsTable
+          
         });
   
         
@@ -239,7 +239,8 @@ socket.on("roomName", ()=>{
           firstThreeCardsTable: firstThreeCardsTable,
           gameState: gameState,
           tableBet: tableBet,
-          roomName: roomName
+          roomName: roomName,
+          userNumber: userNumber
         });
   
       } else if(gameState == 2) {
