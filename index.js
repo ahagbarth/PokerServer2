@@ -147,7 +147,7 @@ socket.on("roomName", ()=>{
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      var userNumber = userNumber + 1; 
+      
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
@@ -218,13 +218,12 @@ socket.on("roomName", ()=>{
        cardDeck = deck.createPack();
         myDeck = deck.shufflePack(cardDeck);
   
-  // 
+  
   
         
   
         io.to(roomName).emit('game start', {
           firstThreeCardsTable: firstThreeCardsTable
-          
         });
   
         
@@ -239,8 +238,7 @@ socket.on("roomName", ()=>{
           firstThreeCardsTable: firstThreeCardsTable,
           gameState: gameState,
           tableBet: tableBet,
-          roomName: roomName,
-          userNumber: userNumber
+          roomName: roomName
         });
   
       } else if(gameState == 2) {
