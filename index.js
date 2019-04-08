@@ -90,9 +90,7 @@ io.on('connection', (socket) => {
       tableState: tableState,
       users: users,
       waitingList: waitingList,
-      userPosition: userPosition,
-      turnState: turnState
-      
+      userPosition: userPosition
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
@@ -181,7 +179,6 @@ socket.on("roomName", ()=>{
   
   
       });
-      
   
       socket.on('pass_turn', ()=>{
       // if(numUsers > 1) {
