@@ -225,8 +225,7 @@ socket.on("roomName", ()=>{
         
   
         io.to(roomName).emit('game start', {
-          firstThreeCardsTable: firstThreeCardsTable,
-          turnState: turnState
+          firstThreeCardsTable: firstThreeCardsTable
         });
   
         
