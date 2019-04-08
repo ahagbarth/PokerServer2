@@ -143,11 +143,10 @@ socket.on("roomName", ()=>{
 */
   socket.on('room', (roomName)=>{
     
-    
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      
+      //var gameState;
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
