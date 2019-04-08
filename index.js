@@ -143,10 +143,11 @@ socket.on("roomName", ()=>{
 */
   socket.on('room', (roomName)=>{
     
+    
     socket.join(roomName, (room) => {
       var currentBet = 0;
       var tableBet = 0;
-      //var gameState;
+      var userNumber = userNumber + 1; 
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
@@ -222,7 +223,8 @@ socket.on("roomName", ()=>{
         
   
         io.to(roomName).emit('game start', {
-          firstThreeCardsTable: firstThreeCardsTable
+          firstThreeCardsTable: firstThreeCardsTable,
+          userNumber: userNumber
         });
   
         
