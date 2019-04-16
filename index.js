@@ -47,6 +47,17 @@ io.on('connection', (socket) => {
 
   var addedUser = false;
   
+socket.on('test', ()=>{
+ socket.emit('login', {
+    numUsers: numUsers,
+    tableState: tableState,
+    users: users,
+    waitingList: waitingList,
+    userPosition: userPosition
+  });
+});
+ 
+
 /*
   var cardDeck = deck.createPack();
   var myDeck = deck.shufflePack(cardDeck);
@@ -134,13 +145,7 @@ socket.on("roomName", ()=>{
     
     ++numUsers;
     addedUser = true;
-    socket.emit('login', {
-      numUsers: numUsers,
-      tableState: tableState,
-      users: users,
-      waitingList: waitingList,
-      userPosition: userPosition
-    });
+    
     // echo globally (all clients) that a person has connected
     socket.to(roomName).emit('user joined', {
       username: socket.username,
