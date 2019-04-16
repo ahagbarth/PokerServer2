@@ -69,9 +69,19 @@ io.on('connection', (socket) => {
     // we store the username in the socket session for this client
     socket.username = username;
     
-    users.push(socket.username);
-      
-    userPosition = users.indexOf(socket.username);
+    
+    if(numUsers > 5) {
+      tableState = "unavailable";
+
+
+      waitingList.push(socket.username);
+    } else {
+      tableState = "available";
+      users.push(socket.username);
+      userPosition = users.indexOf(socket.username);
+    }
+
+
     
     ++numUsers;
     addedUser = true;
