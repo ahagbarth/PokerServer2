@@ -34,7 +34,7 @@ var userHandCompare;
 
 
 var waitingList = [];
-var numUsers = 0;
+
 var userPosition = 0; 
 
 //////////////////
@@ -103,7 +103,7 @@ socket.on("roomName", ()=>{
       var usersFold = [];
       var usersStillPlaying = [];
       var users = [];
-      numUsers = users.length();
+      var numUsers = users.length();
 
       
       
