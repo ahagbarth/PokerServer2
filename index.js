@@ -31,7 +31,7 @@ var finalRoundCard = deck.draw(myDeck, 1);
 var userHand;
 var userHandCompare;
 
-var users = [];
+
 
 var waitingList = [];
 var numUsers = 0;
@@ -102,6 +102,7 @@ socket.on("roomName", ()=>{
       var maxRoundBet = 0;
       var usersFold = [];
       var usersStillPlaying = [];
+      var users = [];
 
       
       
