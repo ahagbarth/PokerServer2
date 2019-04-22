@@ -31,9 +31,11 @@ var finalRoundCard = deck.draw(myDeck, 1);
 var userHand;
 var userHandCompare;
 
+var users = [];
 
-
-
+var waitingList = [];
+var numUsers = 0;
+var userPosition = 0; 
 
 //////////////////
     var turnState =0 ;
@@ -101,10 +103,8 @@ socket.on("roomName", ()=>{
       var usersFold = [];
       var usersStillPlaying = [];
 
-      var users = [];
-      var waitingList = [];
-      var numUsers = 0;
-      var userPosition = 0; 
+      
+      
       var tableState;
       // when the client emits 'add user', this listens and executes
   socket.on('add user', (username) => {
