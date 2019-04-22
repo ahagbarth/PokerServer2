@@ -34,7 +34,8 @@ var userHandCompare;
 
 
 var waitingList = [];
-
+var numUsers = 0;
+var userPosition = 0; 
 
 //////////////////
     var turnState =0 ;
@@ -102,8 +103,8 @@ socket.on("roomName", ()=>{
       var usersFold = [];
       var usersStillPlaying = [];
       var users = [];
-      var numUsers = 0;
-      var userPosition = 0; 
+      numUsers = users.length();
+
       
       
       var tableState;
@@ -128,7 +129,7 @@ socket.on("roomName", ()=>{
 
 
     
-    ++numUsers;
+    //++numUsers;
     addedUser = true;
     socket.emit('login', {
       numUsers: numUsers,
